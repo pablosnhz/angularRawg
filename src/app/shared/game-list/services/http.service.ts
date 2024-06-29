@@ -2,12 +2,12 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
-import { SearchResult } from 'src/models/game';
+import { SearchResult } from 'src/app/core/models/game';
 
 @Injectable({
   providedIn: 'root'
 })
-export class HttpService {
+export class searchService {
 
   constructor( private httpClient: HttpClient ) { }
 

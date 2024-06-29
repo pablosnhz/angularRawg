@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpService } from 'src/shared/services/http.service';
 
 @Component({
   selector: 'app-root',
@@ -9,17 +8,9 @@ import { HttpService } from 'src/shared/services/http.service';
 export class AppComponent implements OnInit {
   title = 'allApp';
 
-  datos: any = [];
-
-  constructor( private http: HttpService ) { }
+  constructor(  ) { }
 
   ngOnInit(): void {
-    this.getGames();
-  }
 
-  getGames() {
-    this.http.getData().subscribe( (resp: any) => {
-      this.datos = resp.results
-    })
   }
 }
