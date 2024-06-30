@@ -4,10 +4,11 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { RouterLink, RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { AuthInterceptor } from './core/interceptors/auth.interceptor';
+// import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 import { MainLayoutComponent } from './core/main-layout/main-layout.component';
 import { AutoDestroyService } from './core/utils/auto-destroy.service';
 import { routes } from './app.routes';
+import { TmdbInterceptor } from './core/interceptors/tmdb.interceptor';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { routes } from './app.routes';
     RouterModule.forRoot(routes)
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    // { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: TmdbInterceptor, multi: true },
     AutoDestroyService
   ],
   bootstrap: [AppComponent]
