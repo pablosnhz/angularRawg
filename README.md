@@ -10,3 +10,4 @@ Dentro del servicio hacemos la peticion http con el endpoint para recuperar todo
 (de que forma sabemos que el interceptor esta funcionando correctamente? porque en cada solicitud en el network se hace presente como tambien porque justificamos el interceptor dentro del modulo principal)
 
 Utilizacion de modulos independientes para cargas diferidas de los diversos componentes segun la estructura del proyecto para hacer uso dentro del routes.ts para la carga diferida de los mismos.
+Hice pruebas con la api de TMDB la cual tenia una un token de tipo Autorizacion, lo contrario a la de Rawg que tiene uno de tipo QueryParams.

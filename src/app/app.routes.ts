@@ -8,8 +8,12 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        loadChildren: () => import('./shared/game-list/games-pages.module').then(m => m.gamePagesModule)
+        loadChildren: () => import('./routes/games-pages.module').then(m => m.gamePagesModule)
       }
     ]
+  },
+  {
+    path: '**',
+    redirectTo: ''
   }
 ];

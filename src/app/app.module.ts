@@ -1,19 +1,20 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { RouterLink, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
-// import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 import { MainLayoutComponent } from './core/main-layout/main-layout.component';
-import { AutoDestroyService } from './core/utils/auto-destroy.service';
 import { routes } from './app.routes';
-import { TmdbInterceptor } from './core/interceptors/tmdb.interceptor';
+import { AuthInterceptor } from './core/interceptors/auth.interceptor';
+import { TopBarComponent } from './core/main-layout/top-bar/top-bar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MainLayoutComponent,
+
+    TopBarComponent,
   ],
   imports: [
     BrowserModule,
@@ -22,9 +23,7 @@ import { TmdbInterceptor } from './core/interceptors/tmdb.interceptor';
     RouterModule.forRoot(routes)
   ],
   providers: [
-    // { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: TmdbInterceptor, multi: true },
-    AutoDestroyService
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]
 })
