@@ -8,7 +8,5 @@ import { Game } from 'src/app/core/models/game';
   styleUrls: ['./game-card.component.scss']
 })
 export class GameCardComponent {
-  // @Input({ required: true }) game: Game;
-
   @Input({ required: true }) gameCard: Game;
 }

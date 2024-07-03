@@ -1,16 +1,25 @@
 <header class="text-white text-4xl flex justify-between gap-5">
   <div class="d-flex flex gap-5 space-x-5" >
     <h1>Quiet Riot</h1>
-    <p class="text-xl mt-2">Home</p>
-    <p class="text-xl mt-2">Genres</p>
-    <p class="text-xl mt-2">All Games</p>
-    <p class="text-xl mt-2">Recently Added</p>
-    <p class="text-xl mt-2">My List</p>
+    <ul class="d-flex flex space-x-5 mt-2">
+      <li class="text-xl"><a href="">Home</a></li>
+      <li class="text-xl"><a href="">Genres</a></li>
+      <li class="text-xl"><a href="">All Games</a></li>
+      <li class="text-xl"><a href="">Recently Added</a></li>
+      <li class="text-xl"><a href="">My List</a></li>
+    </ul>
   </div>
   <div>
     <form action="" class="relative flex">
       <div class="container">
-          <input  type="text" name="text" class="input" required="" placeholder="Search..." >
+          <input
+          type="text"
+          name="text"
+          class="input"
+          required=""
+          [(ngModel)]="query"
+          (ngModelChange)="queryChange$.next(query)"
+          placeholder="Search..." >
           <div  class="icon" >
               <svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 312">
                   <title>Search</title>

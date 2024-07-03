@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, WritableSignal, signal } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
 import { Game, SearchResult } from 'src/app/core/models/game';
 
@@ -13,11 +13,19 @@ export class searchService {
 
   $games: WritableSignal<Game[]> = signal([]);
 
-  getData():Observable<SearchResult> {
-    return this.httpClient.get<SearchResult>(environment.API_URL + 'games');
+  private queryString: BehaviorSubject<string> = new BehaviorSubject<string>('');
+  public queryString$ = this.queryString.asObservable();
+
+  searchGames( title: string  = '' ):Observable<SearchResult> {
+    const params = new HttpParams({ fromObject: { search: title } });
+    return this.httpClient.get<SearchResult>(environment.API_URL + 'games', { params });
   }
 
   setGames( games: Game[] ): void {
     this.$games.set(games)
+  }
+
+  setQueryString( queryString: string ): void {
+    this.queryString.next(queryString)
   }
 }

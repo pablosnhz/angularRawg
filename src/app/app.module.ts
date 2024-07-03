@@ -8,22 +8,26 @@ import { MainLayoutComponent } from './core/main-layout/main-layout.component';
 import { routes } from './app.routes';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 import { TopBarComponent } from './core/main-layout/top-bar/top-bar.component';
+import { AutoDestroyService } from './core/utils/auto-destroy.service';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MainLayoutComponent,
 
+    MainLayoutComponent,
     TopBarComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
+    FormsModule,
 
     RouterModule.forRoot(routes)
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    AutoDestroyService
   ],
   bootstrap: [AppComponent]
 })
