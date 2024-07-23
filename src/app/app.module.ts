@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
@@ -10,6 +10,7 @@ import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 import { TopBarComponent } from './core/main-layout/top-bar/top-bar.component';
 import { AutoDestroyService } from './core/utils/auto-destroy.service';
 import { FormsModule } from '@angular/forms';
+import { HomePageComponent } from './routes/games-page/pages/home-page/home-page.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { FormsModule } from '@angular/forms';
 
     MainLayoutComponent,
     TopBarComponent,
+    HomePageComponent
   ],
   imports: [
     BrowserModule,
@@ -27,8 +29,9 @@ import { FormsModule } from '@angular/forms';
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-    AutoDestroyService
+    AutoDestroyService,
   ],
-  bootstrap: [AppComponent]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

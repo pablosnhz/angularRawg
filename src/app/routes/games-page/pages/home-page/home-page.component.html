@@ -1,0 +1,43 @@
+    <!-- carousel secundario -->
+<div class="w-full relative responsive swiper-container">
+  <div class="flex items-center justify-center swiper-wrapper">
+    <button aria-label="slide backward" class="absolute z-30 left-0 ml-8 focus:outline-none focus:bg-gray-400 focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 cursor-pointer swiper-button-prev" (click)="goPrev()">
+      <svg width="20" height="50" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M7 1L1 7L7 13" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    </button>
+    <div class="w-full h-full mx-auto overflow-x-hidden overflow-y-hidden">
+      <swiper-container class="mySwiper transition ease-out duration-700" pagination="true" pagination-clickable="true" navigation="false" space-between="10" slides-per-view="1" speed="800"
+    centered-slides="true" autoplay-delay="6000" autoplay-disable-on-interaction="true">
+      <swiper-slide *ngFor="let games of $games()" class="flex flex-shrink-0 relative w-full sm:w-auto card-image text-tittle image-container">
+          <img [src]="games.background_image" loading="lazy" alt="black chair and white table"  class="game-image" />
+          <div class="image-overlay"></div>
+          <div class="text-white absolute z-30  left-[8%] p-6">
+            <div class="title" data-swiper-parallax="-300">{{ games.name }}</div>
+            <div class="gap-5 flex mb-2">
+              <button type="button" class="text-white hover:text-[#000000] mt-3 bg-[#636363] hover:bg-gray-100 focus:ring-4 focus:ring-gray-900 rounded-lg text-sm px-6 py-2.5 mb-2 opacity-75">Details</button>
+              <button type="button" class="text-white hover:text-[#000000] mt-3 bg-[#636363] hover:bg-gray-100 focus:ring-4 focus:ring-gray-900 rounded-lg text-sm px-6 py-2.5 mb-2 opacity-75">Add my list</button>
+            </div>
+            <!-- <div class="subtitle" data-swiper-parallax="-200">{{ games.released }}</div> -->
+            <div class="text" data-swiper-parallax="-100">
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam
+                dictum mattis velit, sit amet faucibus felis iaculis nec. Nulla
+                laoreet justo vitae porttitor porttitor. Suspendisse in sem justo.
+                Integer laoreet magna nec elit suscipit, ac laoreet nibh euismod.
+                Aliquam hendrerit lorem at elit facilisis rutrum.
+              </p>
+            </div>
+          </div>
+        </swiper-slide>
+    </swiper-container>
+
+      </div>
+
+    <button aria-label="slide forward" class="absolute z-30 right-0 mr-8 focus:outline-none focus:bg-gray-400 focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 swiper-button-next" (click)="goNext()">
+      <svg width="20" height="50" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1 1L7 7L1 13" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    </button>
+  </div>
+</div>
