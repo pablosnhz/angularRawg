@@ -1,9 +1,9 @@
 <app-top-bar></app-top-bar>
 <main>
-  <div class="text-white content">
+  <div class="text-white content" [class.focused]="inputFocused">
     <app-home-page></app-home-page>
   </div>
-  <div class="router-content">
+  <div class="router-content" [class.focused]="inputFocused">
     <router-outlet></router-outlet>
   </div>
 </main>

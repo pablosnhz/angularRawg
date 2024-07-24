@@ -3,6 +3,7 @@ import { distinctUntilChanged, switchMap, takeUntil } from 'rxjs';
 import { AutoDestroyService } from 'src/app/core/utils/auto-destroy.service';
 import { register } from 'swiper/element/bundle';
 import { searchService } from '../../services/http.service';
+import { InputChangeStyleService } from 'src/app/core/utils/common/input-change-style.service';
 register();
 
 @Component({
@@ -11,13 +12,18 @@ register();
   styleUrls: ['./home-page.component.scss']
 })
 export class HomePageComponent implements OnInit{
+  inputFocused: boolean = false;
   slider: any;
   defaultTransform: any;
   $games = this.searchService.$games;
 
-  constructor( private searchService: searchService, private destroy$: AutoDestroyService ){}
+  constructor( private searchService: searchService, private destroy$: AutoDestroyService, private inputChangeStyleService: InputChangeStyleService ){}
 
   ngOnInit(): void {
+    this.inputChangeStyleService.inputFocused$.subscribe(focused => {
+      this.inputFocused = focused;
+    });
+
     this.slider = document.getElementById("slider");
     this.defaultTransform=0;
 

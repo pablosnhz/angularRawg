@@ -7,8 +7,9 @@
       </svg>
     </button>
     <div class="w-full h-full mx-auto overflow-x-hidden overflow-y-hidden">
-      <swiper-container class="mySwiper transition ease-out duration-700" pagination="true" pagination-clickable="true" navigation="false" space-between="10" slides-per-view="1" speed="800"
-    centered-slides="true" autoplay-delay="6000" autoplay-disable-on-interaction="true">
+      <swiper-container class="mySwiper transition ease-out duration-700" pagination="true" pagination-clickable="true" pagination-dynamic-bullets="true" space-between="10" slides-per-view="1" speed="800"
+    centered-slides="true" autoplay-delay="6000" autoplay-disable-on-interaction="true"
+    [pagination]="{ clickable: true, dynamicBullets: true, el: null }">
       <swiper-slide *ngFor="let games of $games()" class="flex flex-shrink-0 relative w-full sm:w-auto card-image text-tittle image-container">
           <img [src]="games.background_image" loading="lazy" alt="black chair and white table"  class="game-image" />
           <div class="image-overlay"></div>
