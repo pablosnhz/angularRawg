@@ -4,6 +4,7 @@ import { AutoDestroyService } from 'src/app/core/utils/auto-destroy.service';
 import { register } from 'swiper/element/bundle';
 import { searchService } from '../../services/http.service';
 import { InputChangeStyleService } from 'src/app/core/utils/common/input-change-style.service';
+import { HomeService } from '../../services/home.service';
 register();
 
 @Component({
@@ -12,14 +13,16 @@ register();
   styleUrls: ['./home-page.component.scss']
 })
 export class HomePageComponent implements OnInit{
-  inputFocused: boolean = false;
   slider: any;
   defaultTransform: any;
-  $games = this.searchService.$games;
+  $gamesHome = this.homeService.$gamesHome;
+  inputFocused: boolean = false;
 
-  constructor( private searchService: searchService, private destroy$: AutoDestroyService, private inputChangeStyleService: InputChangeStyleService ){}
+
+  constructor( private homeService: HomeService, private destroy$: AutoDestroyService, private inputChangeStyleService: InputChangeStyleService ){}
 
   ngOnInit(): void {
+
     this.inputChangeStyleService.inputFocused$.subscribe(focused => {
       this.inputFocused = focused;
     });
@@ -28,12 +31,12 @@ export class HomePageComponent implements OnInit{
     this.defaultTransform=0;
 
 
-    this.searchService.queryString$.pipe(
+    this.homeService.queryString$.pipe(
     distinctUntilChanged(),
-    switchMap((title) => this.searchService.searchGames(title)),
+    switchMap((title) => this.homeService.searchGames(title)),
     takeUntil(this.destroy$)
   ).subscribe((data) => {
-    this.searchService.setGames(data.results)
+    this.homeService.setGames(data.results)
   })
   // this.getGames();
 }

@@ -1,17 +1,15 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class InputChangeStyleService {
 
-  constructor() { }
-
-  private inputFocusedSource = new Subject<boolean>();
-  inputFocused$ = this.inputFocusedSource.asObservable();
+  private inputFocusedSubject = new BehaviorSubject<boolean>(false);
+  inputFocused$ = this.inputFocusedSubject.asObservable();
 
   setInputFocused(focused: boolean) {
-    this.inputFocusedSource.next(focused);
+    this.inputFocusedSubject.next(focused);
   }
 }
