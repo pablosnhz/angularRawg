@@ -1,3 +1,5 @@
-<div *ngFor="let game of gamesList" class="text-white">
-  <app-game-card [gameCard]="game"></app-game-card>
+<div class="masonry-grid">
+  <div *ngFor="let game of gamesList" class="masonry-item">
+    <app-game-card class="" [gameCard]="game"></app-game-card>
+  </div>
 </div>
