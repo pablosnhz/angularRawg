@@ -24,7 +24,6 @@ searchGames( title: string  = '' ):Observable<SearchResult> {
 setGames( games: Game[] ): void {
   this.$games.set(games)
 }
-
 setQueryString( queryString: string ): void {
   this.queryString.next(queryString)
 }

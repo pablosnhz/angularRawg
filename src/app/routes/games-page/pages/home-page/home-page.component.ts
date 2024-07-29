@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { distinctUntilChanged, switchMap, takeUntil } from 'rxjs';
+import { distinctUntilChanged, switchMap, takeUntil, Observable } from 'rxjs';
 import { AutoDestroyService } from 'src/app/core/utils/auto-destroy.service';
 import { register } from 'swiper/element/bundle';
-import { searchService } from '../../services/http.service';
 import { InputChangeStyleService } from 'src/app/core/utils/common/input-change-style.service';
 import { HomeService } from '../../services/home.service';
+import { searchService } from '../../../../core/utils/common/http.service';
+import { GameService } from '../../services/game.service';
+import { GameDetails } from 'src/app/core/models/game-details';
 register();
 
 @Component({
@@ -18,8 +20,10 @@ export class HomePageComponent implements OnInit{
   $gamesHome = this.homeService.$gamesHome;
   inputFocused: boolean = false;
 
-
-  constructor( private homeService: HomeService, private destroy$: AutoDestroyService, private inputChangeStyleService: InputChangeStyleService ){}
+  constructor(  private homeService: HomeService,
+                private destroy$: AutoDestroyService,
+                private inputChangeStyleService: InputChangeStyleService,
+              ){}
 
   ngOnInit(): void {
 

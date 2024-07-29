@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { distinctUntilChanged, switchMap, takeUntil } from 'rxjs';
 import { AutoDestroyService } from 'src/app/core/utils/auto-destroy.service';
-import { searchService } from 'src/app/routes/games-page/services/http.service';
+import { searchService } from 'src/app/core/utils/common/http.service';
 
 @Component({
   selector: 'app-games-page',

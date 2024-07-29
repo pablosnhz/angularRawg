@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Subject, debounceTime, distinctUntilChanged, takeUntil } from 'rxjs';
-import { searchService } from 'src/app/routes/games-page/services/http.service';
 import { AutoDestroyService } from '../../utils/auto-destroy.service';
 import { InputChangeStyleService } from '../../utils/common/input-change-style.service';
+import { searchService } from '../../utils/common/http.service';
 
 @Component({
   selector: 'app-top-bar',
