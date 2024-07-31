@@ -1,7 +1,22 @@
-<p class="text-white">ESTOY LLEGANDO CORRECTAMENTE</p>
 
-
-<article >
-  <img src="{{ gameDetails.background_image }}" alt="">
+<article class="w-full ">
+  <div class="p-6 h-full w-full content-detail">
+      <img src="{{ gameDetails.background_image_additional }}" loading="lazy" alt="{{ gameDetails.name }}" class="w-[100%]">
+      <div class="image-overlay-detail"></div>
+  </div>
 </article>
-<p class="text-white" [innerHTML]="gameDetails.description"></p>
+
+<div class="z-2 relative flex d-flex p-6 h-[80vh] w-full">
+  <img src="{{ gameDetails.background_image }}" alt="{{ gameDetails.name }}" class="game-image-detail p-20">
+  <div class="flex flex-col justify-center">
+    <div class="text-[#45d66b]">Rating: {{ gameDetails.rating }}</div>
+    <p class="text-white 2xl:text-7xl font-bold">{{ gameDetails.name }}</p>
+    <div>
+      <button type="button" class="text-white hover:text-[#000000] mt-3 bg-[#636363] hover:bg-gray-100 focus:ring-4 focus:ring-gray-900 rounded-lg text-sm px-6 py-2.5 mb-5 opacity-75">Add to my list</button>
+    </div>
+    <p class="text-white" [innerHTML]="gameDetails.description"></p>
+
+
+
+  </div>
+</div>

@@ -4,9 +4,6 @@ import { AutoDestroyService } from 'src/app/core/utils/auto-destroy.service';
 import { register } from 'swiper/element/bundle';
 import { InputChangeStyleService } from 'src/app/core/utils/common/input-change-style.service';
 import { HomeService } from '../../services/home.service';
-import { searchService } from '../../../../core/utils/common/http.service';
-import { GameService } from '../../services/game.service';
-import { GameDetails } from 'src/app/core/models/game-details';
 register();
 
 @Component({
