@@ -15,10 +15,6 @@ import { HomePageComponent } from './routes/games-page/pages/home-page/home-page
 @NgModule({
   declarations: [
     AppComponent,
-
-    MainLayoutComponent,
-    TopBarComponent,
-    HomePageComponent
   ],
   imports: [
     BrowserModule,

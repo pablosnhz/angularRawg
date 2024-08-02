@@ -1,21 +1,30 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, CUSTOM_ELEMENTS_SCHEMA, OnInit, Signal, signal } from '@angular/core';
 import { distinctUntilChanged, switchMap, takeUntil, Observable } from 'rxjs';
 import { AutoDestroyService } from 'src/app/core/utils/auto-destroy.service';
 import { register } from 'swiper/element/bundle';
 import { InputChangeStyleService } from 'src/app/core/utils/common/input-change-style.service';
 import { HomeService } from '../../services/home.service';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 register();
 
 @Component({
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
-  styleUrls: ['./home-page.component.scss']
+  styleUrls: ['./home-page.component.scss'],
+  standalone: true,
+  imports: [CommonModule, RouterModule],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  providers: [AutoDestroyService],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomePageComponent implements OnInit{
   slider: any;
   defaultTransform: any;
   $gamesHome = this.homeService.$gamesHome;
   inputFocused: boolean = false;
+
+  // $loading: Signal<boolean> = this.homeService.$loading;
 
   constructor(  private homeService: HomeService,
                 private destroy$: AutoDestroyService,

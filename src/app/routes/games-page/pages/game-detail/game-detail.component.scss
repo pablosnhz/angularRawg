@@ -6,6 +6,24 @@
   // top: 0;
 }
 
+// .content {
+//   position: absolute;
+//   top: 0;
+//   left: 0;
+//   width: 100%;
+//   height: 100%;
+//   background-size: cover;
+//   background-position: center;
+//   z-index: -1;
+//   transition: top 0.5s ease;
+
+//   &.focused {
+//     top: -80vh;
+//     display: none;
+//     background-position: center 60%;
+//   }
+// }
+
 .content-detail img {
   opacity: 0.25;
 }
@@ -16,6 +34,7 @@
   border-radius: 20px;
   object-fit: cover;
   object-position: center;
+  background-position: center;
 }
 
 .image-overlay-detail {

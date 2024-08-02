@@ -1,3 +1,11 @@
 <!-- <h3 class="text-white text-4xl">{{ $games() | json }}</h3> -->
+<!-- <ng-container *ngIf="!$loading(); else spinner">
+  <div class="fixed inset-0 flex justify-center items-center z-50">
+    <app-spinner class="flex justify-center items-center h-screen"></app-spinner>
+  </div>
+</ng-container>
 
-<app-game-list class="break-inside-avoid inline-block" [gamesList]="$games()"></app-game-list>
+
+<ng-template #spinner>
+  <app-game-list class="break-inside-avoid inline-block" [gamesList]="$games()"></app-game-list>
+</ng-template> -->

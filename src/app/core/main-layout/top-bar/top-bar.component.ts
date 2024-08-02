@@ -3,12 +3,17 @@ import { Subject, debounceTime, distinctUntilChanged, takeUntil } from 'rxjs';
 import { AutoDestroyService } from '../../utils/auto-destroy.service';
 import { InputChangeStyleService } from '../../utils/common/input-change-style.service';
 import { searchService } from '../../utils/common/http.service';
+import { FormsModule, NgModel } from '@angular/forms';
+import { RouterModule, RouterOutlet } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-top-bar',
   templateUrl: './top-bar.component.html',
   styleUrls: ['./top-bar.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [FormsModule, RouterOutlet, RouterModule, CommonModule],
 })
 export class TopBarComponent implements OnInit{
   query: string = '';

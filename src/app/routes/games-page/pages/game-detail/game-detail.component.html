@@ -7,7 +7,7 @@
 </article>
 
 <div class="z-2 relative flex d-flex p-6 h-[80vh] w-full">
-  <img src="{{ gameDetails.background_image }}" alt="{{ gameDetails.name }}" class="game-image-detail p-20">
+  <img src="{{ gameDetails.background_image }}" alt="{{ gameDetails.name }}" loading="lazy" class="game-image-detail p-20">
   <div class="flex flex-col justify-center">
     <div class="text-[#45d66b]">Rating: {{ gameDetails.rating }}</div>
     <p class="text-white 2xl:text-7xl font-bold">{{ gameDetails.name }}</p>

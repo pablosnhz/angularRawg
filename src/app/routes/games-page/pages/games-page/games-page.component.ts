@@ -1,29 +1,39 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { distinctUntilChanged, switchMap, takeUntil } from 'rxjs';
+import { CommonModule, NgTemplateOutlet } from '@angular/common';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AutoDestroyService } from 'src/app/core/utils/auto-destroy.service';
-import { searchService } from 'src/app/core/utils/common/http.service';
+import { AbstractGamesPageComponent } from 'src/app/shared/abstract-games-page/abstract-games-page.component';
+import { GameListComponent } from 'src/app/shared/game-list/game-list.component';
+import { SpinnerComponent } from 'src/app/shared/spinner/spinner.component';
 
 @Component({
   selector: 'app-games-page',
-  templateUrl: './games-page.component.html',
+  templateUrl: '../../../../shared/abstract-games-page/abstract-games-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./games-page.component.scss'],
+  standalone: true,
+  imports: [GameListComponent, SpinnerComponent, CommonModule, NgTemplateOutlet],
+  providers: [AutoDestroyService]
 })
-export class GamesPageComponent implements OnInit{
-constructor( private searchService: searchService, private destroy$: AutoDestroyService ){}
+export class GamesPageComponent extends AbstractGamesPageComponent {
 
-$games = this.searchService.$games;
+  constructor(){
+    super();
+  }
+// constructor( private searchService: searchService, private destroy$: AutoDestroyService ){}
 
-ngOnInit(): void {
-  this.searchService.queryString$.pipe(
-    distinctUntilChanged(),
-    switchMap((title) => this.searchService.searchGames(title)),
-    takeUntil(this.destroy$)
-  ).subscribe((data) => {
-    this.searchService.setGames(data.results)
-  })
-  // this.getGames();
-}
+// $games = this.searchService.$games;
+// $loading: Signal<boolean> = this.searchService.$loading;
+
+// ngOnInit(): void {
+//   this.searchService.queryString$.pipe(
+//     distinctUntilChanged(),
+//     switchMap((title) => this.searchService.searchGames(title)),
+//     takeUntil(this.destroy$)
+//   ).subscribe((data) => {
+//     this.searchService.setGames(data.results)
+//   })
+//   // this.getGames();
+// }
 
 // getGames(){
 //   this.searchService.searchGames().pipe(
