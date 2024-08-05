@@ -13,12 +13,11 @@
       <swiper-slide *ngFor="let games of $gamesHome()" class="flex flex-shrink-0 relative w-full sm:w-auto image-container">
           <img [src]="games.background_image" loading="lazy" alt="black chair and white table"  class="game-image" />
           <div class="image-overlay"></div>
-          <div class="text-white absolute z-30 left-[8%] p-6">
+          <div class="text-white absolute left-[8%] p-6">
             <div class="title" data-swiper-parallax="-300">{{ games.name }}</div>
             <div class="subtitle text-[#45d66b]" data-swiper-parallax="-200">Rating: {{ games.rating }}</div>
             <div class="gap-5 flex mb-2">
-              <a [routerLink]="['/games', games.id]"  class="text-white hover:text-[#000000] mt-3 bg-[#636363] hover:bg-gray-100 focus:ring-4 focus:ring-gray-900 rounded-lg text-sm px-6 py-2.5 mb-2 opacity-75">Details</a>
-              <button type="button" class="text-white hover:text-[#000000] mt-3 bg-[#636363] hover:bg-gray-100 focus:ring-4 focus:ring-gray-900 rounded-lg text-sm px-6 py-2.5 mb-2 opacity-75">Details</button>
+              <a [routerLink]="['/games', games.id]" class="text-white hover:text-[#000000] mt-3 bg-[#636363] hover:bg-gray-100 focus:ring-4 focus:ring-gray-900 rounded-lg text-sm px-6 py-2.5 mb-2 opacity-75">Details</a>
               <button type="button" class="text-white hover:text-[#000000] mt-3 bg-[#636363] hover:bg-gray-100 focus:ring-4 focus:ring-gray-900 rounded-lg text-sm px-6 py-2.5 mb-2 opacity-75">Add my list</button>
             </div>
             <!-- <div class="subtitle" data-swiper-parallax="-200">{{ games.released }}</div> -->

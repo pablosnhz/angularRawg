@@ -1,11 +1,11 @@
 
-<article class="w-full">
-  <div class="p-6 h-full w-full content-detail">
+<article class="w-[85%] m-0">
+  <div class="h-full content-detail">
       <img src="{{ gameDetails.background_image_additional }}" loading="lazy" alt="{{ gameDetails.name }}">
       <div class="image-overlay-detail"></div>
   </div>
-  <div class="relative flex d-flex p-6 h-[70vh] w-full">
-    <img src="{{ gameDetails.background_image }}" alt="{{ gameDetails.name }}" loading="lazy" class="game-image-detail p-20">
+  <div class="relative flex d-flex p-6 h-[70vh]">
+    <img src="{{ gameDetails.background_image }}" alt="{{ gameDetails.name }}" loading="lazy" class="game-image-detail my-10 p-10">
     <div class="flex flex-col justify-center">
       <div class="text-[#45d66b]">Rating: {{ gameDetails.rating }}</div>
       <p class="text-white 2xl:text-7xl font-bold">{{ gameDetails.name }}</p>

@@ -10,7 +10,7 @@
   height: 120%;
   object-fit: cover;
   object-position: center;
-  z-index: 0;
+  // z-index: 0;
 }
 
 .image-overlay {
@@ -20,7 +20,7 @@
   width: 100%;
   height: 100%;
   box-shadow: rgb(20, 20, 20) 0px -120px 36px -28px inset, rgba(26, 26, 26, 0.941) 0px 70px 136px -28px inset, rgba(26, 26, 26, 0.941) 800px 0px 200px -128px inset;
-  z-index: 1;
+  // z-index: 1;
 }
 
 

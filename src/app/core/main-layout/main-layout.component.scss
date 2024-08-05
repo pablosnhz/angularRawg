@@ -6,7 +6,7 @@
   height: 100%;
   background-size: cover;
   background-position: center;
-  z-index: -1;
+  // z-index: -1;
   transition: top 0.5s ease;
 
   &.focused {
@@ -20,23 +20,23 @@
   position: relative;
   top: 80vh;
   // top: 100vh;
-  width: 100%;
   transition: top 0.5s ease;
   display: none;
 
   &.focused {
     top: 10vh;
+    width: 111.9%;
     display: block;
   }
 }
 
-@keyframes upDown {
-  from {
-    transform: translateY(-200%);
-  }
-  to {
-    transform: translateY(100%);
-  }
-}
+// @keyframes upDown {
+//   from {
+//     transform: translateY(-200%);
+//   }
+//   to {
+//     transform: translateY(100%);
+//   }
+// }
 
 
