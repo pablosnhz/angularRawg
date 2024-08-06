@@ -18,10 +18,10 @@
 
 .router-content {
   position: relative;
-  top: 80vh;
+  top: 10vh;
   // top: 100vh;
   transition: top 0.5s ease;
-  display: none;
+  // display: none;
 
   &.focused {
     top: 10vh;

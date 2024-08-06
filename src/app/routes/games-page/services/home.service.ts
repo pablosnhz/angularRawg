@@ -16,11 +16,18 @@ export class HomeService {
   private queryString: BehaviorSubject<string> = new BehaviorSubject<string>('');
   public queryString$ = this.queryString.asObservable();
 
-  // public $loading: WritableSignal<boolean> = signal(false);
+  public $loading: WritableSignal<boolean> = signal(false);
 
   searchGames( title: string  = '' ):Observable<SearchResult> {
-    // this.$loading.set(true);
-    const params = new HttpParams({ fromObject: { search: title } });
+    this.$loading.set(true);
+    const params = new HttpParams({
+      fromObject: {
+        search: title,
+        ordering: '-released',
+        page_size: 50,
+        metacritic: '80,100'
+      }
+    });
     return this.httpClient.get<SearchResult>(environment.API_URL + 'games', { params });
   }
 

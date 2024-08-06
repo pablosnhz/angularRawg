@@ -1,11 +1,22 @@
 <header class="text-white text-4xl flex justify-between gap-5">
   <div class="d-flex flex gap-5 space-x-5 z-50">
-    <h1>Quiet Riot</h1>
+    <a [routerLink]="['/']">
+      <h1>Quiet Riot</h1>
+    </a>
     <ul class="d-flex flex space-x-5 mt-2 z-50">
-      <li class="text-xl"><a href="">Home</a></li>
+      <li
+      routerLinkActive="underline underline-offset-4"
+      [routerLinkActiveOptions]="{exact: true}"
+      class="text-xl block hover:text-[#636363] transition-colors cursor-pointer"><a [routerLink]="['/']">Home</a></li>
       <li class="text-xl"><a href="">Genres</a></li>
-      <li class="text-xl"><a href="">All Games</a></li>
-      <li class="text-xl"><a href="">Recently Added</a></li>
+      <li
+      routerLinkActive="underline underline-offset-4"
+      [routerLinkActiveOptions]="{exact: true}"
+      class="text-xl block hover:text-[#636363] transition-colors cursor-pointer"><a [routerLink]="['/games']">All Games</a></li>
+      <li
+      routerLinkActive="underline underline-offset-4"
+      [routerLinkActiveOptions]="{exact: true}"
+      class="text-xl block hover:text-[#636363] transition-colors cursor-pointer"><a [routerLink]="['/games/recently']">Recently Added</a></li>
       <li class="text-xl"><a href="">My List</a></li>
     </ul>
   </div>
@@ -19,7 +30,7 @@
           required=""
           [(ngModel)]="query"
           (ngModelChange)="queryChange$.next(query)"
-          (focus)="onInputFocus()"
+          [routerLink]="['/games']"
 
           placeholder="Search..." >
           <div  class="icon" >

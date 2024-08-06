@@ -3,6 +3,20 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  .line-clamp-10 {
+    @apply overflow-hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 10;
+    transition: all 0.5s ease-in-out;
+  }
+  .line-clamp-none {
+    @apply overflow-visible;
+    -webkit-line-clamp: unset;
+    transition: all 0.5s ease-in-out;
+  }
+}
 
 $max-width: 1600px;
 $primary: #151515;

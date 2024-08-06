@@ -3,6 +3,7 @@ import { Injectable, WritableSignal, signal } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
 import { Game, SearchResult } from 'src/app/core/models/game';
+import { SearchFilters } from '../../models/search-filters';
 
 @Injectable({
   providedIn: 'root'
@@ -18,9 +19,13 @@ public queryString$ = this.queryString.asObservable();
 
 public $loading: WritableSignal<boolean> = signal(false);
 
-searchGames( title: string  = '' ):Observable<SearchResult> {
+searchGames( filters: SearchFilters ):Observable<SearchResult> {
   this.$loading.set(true);
-  const params = new HttpParams({ fromObject: { search: title } });
+  const params = new HttpParams({
+    fromObject: {
+      ...filters
+    }
+   });
   return this.httpClient.get<SearchResult>(environment.API_URL + 'games', { params });
 }
 

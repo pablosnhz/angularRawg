@@ -17,7 +17,7 @@
             <div class="title" data-swiper-parallax="-300">{{ games.name }}</div>
             <div class="subtitle text-[#45d66b]" data-swiper-parallax="-200">Rating: {{ games.rating }}</div>
             <div class="gap-5 flex mb-2">
-              <a [routerLink]="['/games', games.id]" class="text-white hover:text-[#000000] mt-3 bg-[#636363] hover:bg-gray-100 focus:ring-4 focus:ring-gray-900 rounded-lg text-sm px-6 py-2.5 mb-2 opacity-75">Details</a>
+              <a [routerLink]="['games', games.id]" class="text-white hover:text-[#000000] mt-3 bg-[#636363] hover:bg-gray-100 focus:ring-4 focus:ring-gray-900 rounded-lg text-sm px-6 py-2.5 mb-2 opacity-75">Details</a>
               <button type="button" class="text-white hover:text-[#000000] mt-3 bg-[#636363] hover:bg-gray-100 focus:ring-4 focus:ring-gray-900 rounded-lg text-sm px-6 py-2.5 mb-2 opacity-75">Add my list</button>
             </div>
             <!-- <div class="subtitle" data-swiper-parallax="-200">{{ games.released }}</div> -->

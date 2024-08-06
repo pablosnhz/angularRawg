@@ -1,7 +1,7 @@
 <div class="masonry-grid">
   <ng-container *ngIf="!$loading(); else spinner">
     <div *ngFor="let game of gamesList" class="masonry-item">
-      <app-game-card class="" [gameCard]="game"></app-game-card>
+      <app-game-card [gameCard]="game"></app-game-card>
     </div>
   </ng-container>
   <ng-template #spinner>

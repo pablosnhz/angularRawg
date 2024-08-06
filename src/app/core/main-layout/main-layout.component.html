@@ -1,11 +1,18 @@
 <!-- <app-top-bar class="fixed z-50"></app-top-bar> -->
-<app-top-bar></app-top-bar>
-
+<!-- <app-top-bar></app-top-bar>
 <main>
-  <div class="text-white content" [class.focused]="inputFocused">
+  <!-- <div class="text-white content" [class.focused]="inputFocused">
     <app-home-page></app-home-page>
+  </div> -->
+  <!-- <div class="router-content" >
+    <router-outlet></router-outlet>
   </div>
-  <div class="router-content" [class.focused]="inputFocused">
+</main>  -->
+
+
+<app-top-bar></app-top-bar>
+<main>
+  <div>
     <router-outlet></router-outlet>
   </div>
 </main>

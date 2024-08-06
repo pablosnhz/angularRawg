@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GameDetails } from 'src/app/core/models/game-details';
@@ -8,10 +9,11 @@ import { GameDetails } from 'src/app/core/models/game-details';
   styleUrls: ['./game-detail.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: []
+  imports: [CommonModule]
 })
 export class GameDetailComponent implements OnInit{
 gameDetails: GameDetails;
+isExpanded: boolean = false;
 constructor( private route: ActivatedRoute ) { }
 
   ngOnInit(): void {
@@ -19,4 +21,7 @@ constructor( private route: ActivatedRoute ) { }
     // console.log(this.gameDetails);
   }
 
+  toggleText() {
+    this.isExpanded = !this.isExpanded;
+  }
 }

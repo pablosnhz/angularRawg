@@ -11,6 +11,7 @@ import { TopBarComponent } from './core/main-layout/top-bar/top-bar.component';
 import { AutoDestroyService } from './core/utils/auto-destroy.service';
 import { FormsModule } from '@angular/forms';
 import { HomePageComponent } from './routes/games-page/pages/home-page/home-page.component';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [

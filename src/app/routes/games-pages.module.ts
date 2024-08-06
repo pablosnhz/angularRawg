@@ -6,6 +6,7 @@ import { GameDetailComponent } from './games-page/pages/game-detail/game-detail.
 import { GamesPageComponent } from './games-page/pages/games-page/games-page.component';
 import { GameIdResolver } from '../core/resolvers/game-id.resolver';
 import { GameListComponent } from '../shared/game-list/game-list.component';
+import { RecentlyPagesPageComponent } from './games-page/pages/recently-pages-page/recently-pages-page.component';
 
 const routes: Routes = [
   {
@@ -13,16 +14,21 @@ const routes: Routes = [
     component: GamesPageComponent
   },
   {
+    path: 'recently',
+    component: RecentlyPagesPageComponent
+  },
+  {
     path: 'games',
     component: GameListComponent
   },
   {
-    path: 'games/:id',
+    path: ':id',
     resolve: {
       game: GameIdResolver
     },
     component: GameDetailComponent
-  }
+  },
+
 ]
 
 @NgModule({
@@ -32,7 +38,8 @@ const routes: Routes = [
     RouterModule.forChild(routes)
   ],
   exports: [],
-  declarations: [],
+  declarations: [
+  ],
   providers: [AutoDestroyService, GameIdResolver],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 
