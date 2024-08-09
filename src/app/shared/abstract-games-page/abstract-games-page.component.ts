@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit, signal, Signal, WritableSignal } from '@angular/core';
-import { debounceTime, distinctUntilChanged, merge, Subject, switchMap, takeUntil, tap } from 'rxjs';
+import { Subject, switchMap, takeUntil, tap } from 'rxjs';
 import { Game } from 'src/app/core/models/game';
 import { AutoDestroyService } from 'src/app/core/utils/auto-destroy.service';
 import { searchService } from 'src/app/core/utils/common/http.service';
@@ -27,16 +27,13 @@ export abstract class AbstractGamesPageComponent implements OnInit{
   $games: Signal<Game[]> = this.searchService.$games;
   $loading: Signal<boolean> = this.searchService.$loading;
   onFiltersChange$: Subject<SearchFilters> = new Subject<SearchFilters>();
-  filters: WritableSignal<SearchFilters> = signal({
-    search: '',
-    page_size: 50,
-  });
 
   orderPreference: string = 'Relevance'
 
-  searchFilters: SearchFilters = {
+  searchDefaultFilters: SearchFilters = {
     search: '',
     page_size: 50,
+    showFilters: true
   }
 
   form: FormGroup;
@@ -52,17 +49,9 @@ export abstract class AbstractGamesPageComponent implements OnInit{
   initForm(): void {
     this.form = this.fb.group({
       order: [''],
-      platform: ['Platforms']
+      platform: ['1']
     });
     this.subscribeToFormChanges();
-  }
-
-  subscribeToQueryChanges(): void {
-    this.searchService.queryString$
-    .pipe(takeUntil(this.destroy$))
-    .subscribe((query: string) => {
-      this.onFiltersChange$.next({ ...this.searchFilters, search: query });
-    });
   }
 
   subscribeToFilterChanges(): void {
@@ -75,14 +64,21 @@ export abstract class AbstractGamesPageComponent implements OnInit{
     });
   };
 
+  subscribeToQueryChanges(): void {
+    this.searchService.queryString$
+    .pipe(takeUntil(this.destroy$))
+    .subscribe((query: string) => {
+      this.onFiltersChange$.next({ ...this.searchDefaultFilters, search: query });
+    });
+  }
+
   subscribeToFormChanges(): void {
     this.form.valueChanges.pipe(takeUntil(this.destroy$)).subscribe(()=>{
       const ordering = this.form.controls['order'].value;
       const platform = this.form.controls['platform'].value;
 
-      console.log(ordering, platform);
 
-      this.onFiltersChange$.next({ ...this.searchFilters, ordering, platform });
+      this.onFiltersChange$.next({ ...this.searchDefaultFilters, ordering, parent_platforms: platform });
     });
   };
 

@@ -35,7 +35,6 @@ export class HomePageComponent implements OnInit{
 
 
     this.homeService.queryString$.pipe(
-
     distinctUntilChanged(),
     switchMap((title) => this.homeService.searchGames(title)),
     takeUntil(this.destroy$)

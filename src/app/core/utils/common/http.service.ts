@@ -26,7 +26,7 @@ searchGames( filters: SearchFilters ):Observable<SearchResult> {
       ...filters
     }
    });
-  return this.httpClient.get<SearchResult>(environment.API_URL + 'games', { params });
+  return this.httpClient.get<SearchResult>(environment.API_URL + 'games', { params })
 }
 
 setGames( games: Game[] ): void {

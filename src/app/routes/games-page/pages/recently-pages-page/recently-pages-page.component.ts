@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { RouterOutlet } from '@angular/router';
 import { SearchFilters } from 'src/app/core/models/search-filters';
 import { AutoDestroyService } from 'src/app/core/utils/auto-destroy.service';
 import { AbstractGamesPageComponent } from 'src/app/shared/abstract-games-page/abstract-games-page.component';
@@ -18,10 +17,11 @@ import { SpinnerComponent } from 'src/app/shared/spinner/spinner.component';
   providers: [AutoDestroyService]
 })
 export class RecentlyPagesPageComponent extends AbstractGamesPageComponent{
-  override searchFilters: SearchFilters = {
-    ...this.searchFilters,
+  override searchDefaultFilters: SearchFilters = {
+    ...this.searchDefaultFilters,
     ordering: '-released',
-    metacritic: '80,100'
+    metacritic: '80,100',
+    showFilters: false
   }
 
   constructor() {

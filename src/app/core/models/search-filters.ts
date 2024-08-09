@@ -2,6 +2,7 @@ export interface SearchFilters {
   search?: string;
   ordering?: string;
   page_size?: number;
-  platform?: string,
+  parent_platforms?: string,
   metacritic?: string;
+  showFilters?: boolean;
 }
