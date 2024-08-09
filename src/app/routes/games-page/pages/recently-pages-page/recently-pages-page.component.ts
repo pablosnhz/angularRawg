@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import { RouterOutlet } from '@angular/router';
 import { SearchFilters } from 'src/app/core/models/search-filters';
 import { AutoDestroyService } from 'src/app/core/utils/auto-destroy.service';
@@ -13,7 +14,7 @@ import { SpinnerComponent } from 'src/app/shared/spinner/spinner.component';
   templateUrl: '../../../../shared/abstract-games-page/abstract-games-page.component.html',
   styleUrls: ['./recently-pages-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [GameListComponent, SpinnerComponent, CommonModule],
+  imports: [GameListComponent, SpinnerComponent, CommonModule, ReactiveFormsModule],
   providers: [AutoDestroyService]
 })
 export class RecentlyPagesPageComponent extends AbstractGamesPageComponent{

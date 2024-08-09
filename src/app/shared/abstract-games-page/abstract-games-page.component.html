@@ -1,25 +1,37 @@
-<!-- <ng-container *ngIf="$loading(); else spinner">
+
+<ng-container *ngIf="$loading(); else spinner">
+  <form class="flex gap-5 text-white" [formGroup]="form">
+    <select
+    formControlName="order"
+    id="small"
+    class="text-sm rounded-lg block w-42 p-2.5 bg-[#1f1f1f] text-white outline-none"
+    >
+      <option selected disabled hidden>Order by: {{ orderPreference }}</option>
+      <option value="-relevance">Relevance</option>
+      <option value="-created">Date added</option>
+      <option value="name">Name</option>
+      <option value="-released">Release date</option>
+      <option value="-added">Popularity</option>
+      <option value="-rating">Average rating</option>
+    </select>
+
+    <select
+    formControlName="platform"
+    id="small"
+    class="text-sm rounded-lg block w-42 p-2.5 bg-[#1f1f1f] text-white outline-none"
+    >
+      <option selected disabled hidden>Platforms</option>
+      <option disabled>Platforms</option>
+      <option value="parent_platforms">PC</option>
+      <option value="parent_platforms">Playstation</option>
+      <option value="parent_platforms">Xbox</option>
+    </select>
+  </form>
+  <app-game-list class="break-inside-avoid inline-block" [gamesList]="$games()"></app-game-list>
+</ng-container>
+
+<ng-template #spinner>
   <div class="fixed inset-0 flex justify-center items-center z-50">
     <app-spinner class="flex justify-center items-center h-screen"></app-spinner>
   </div>
-</ng-container>
-
-
-<ng-template #spinner>
-</ng-template> -->
-
-
-<!-- <div *ngIf="$loading()">
-  <div class="flex items-center items-center justify-center">
-    <app-spinner></app-spinner>
-  </div>
-</div> -->
-
-<div class="mt-5">
-  <app-game-list class="break-inside-avoid inline-block" [gamesList]="$games()"></app-game-list>
-  <div *ngIf="$loading()">
-    <div class="flex items-center justify-center">
-      <app-spinner></app-spinner>
-    </div>
-  </div>
-</div>
+</ng-template>

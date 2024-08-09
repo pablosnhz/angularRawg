@@ -1,5 +1,6 @@
 import { CommonModule, NgTemplateOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import { SearchFilters } from 'src/app/core/models/search-filters';
 import { AutoDestroyService } from 'src/app/core/utils/auto-destroy.service';
 import { AbstractGamesPageComponent } from 'src/app/shared/abstract-games-page/abstract-games-page.component';
@@ -12,7 +13,7 @@ import { SpinnerComponent } from 'src/app/shared/spinner/spinner.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./games-page.component.scss'],
   standalone: true,
-  imports: [GameListComponent, SpinnerComponent, CommonModule],
+  imports: [GameListComponent, SpinnerComponent, CommonModule, ReactiveFormsModule],
   providers: [AutoDestroyService]
 })
 export class GamesPageComponent extends AbstractGamesPageComponent {

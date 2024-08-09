@@ -1,11 +1,10 @@
-import { ChangeDetectionStrategy, Component, CUSTOM_ELEMENTS_SCHEMA, OnInit, Signal, signal } from '@angular/core';
-import { distinctUntilChanged, switchMap, takeUntil, Observable } from 'rxjs';
+import { ChangeDetectionStrategy, Component, CUSTOM_ELEMENTS_SCHEMA, OnInit, Signal } from '@angular/core';
+import { distinctUntilChanged, switchMap, takeUntil } from 'rxjs';
 import { AutoDestroyService } from 'src/app/core/utils/auto-destroy.service';
-import { register } from 'swiper/element/bundle';
-import { InputChangeStyleService } from 'src/app/core/utils/common/input-change-style.service';
 import { HomeService } from '../../services/home.service';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { register } from 'swiper/element/bundle';
 register();
 
 @Component({
@@ -24,24 +23,19 @@ export class HomePageComponent implements OnInit{
   $gamesHome = this.homeService.$gamesHome;
   inputFocused: boolean = false;
 
-  // $loading: Signal<boolean> = this.homeService.$loading;
+  $loading: Signal<boolean> = this.homeService.$loading;
 
   constructor(  private homeService: HomeService,
                 private destroy$: AutoDestroyService,
-                private inputChangeStyleService: InputChangeStyleService,
               ){}
 
   ngOnInit(): void {
-
-    this.inputChangeStyleService.inputFocused$.subscribe(focused => {
-      this.inputFocused = focused;
-    });
-
     this.slider = document.getElementById("slider");
     this.defaultTransform=0;
 
 
     this.homeService.queryString$.pipe(
+
     distinctUntilChanged(),
     switchMap((title) => this.homeService.searchGames(title)),
     takeUntil(this.destroy$)

@@ -2,7 +2,7 @@
 
 Aplicacion donde llevo abordo todos mis conocimientos con Angular
 
-En esta aplicacion hice uso de Estructuramiento de Carpetas, Tailwind, Sass, Interceptors, Peticiones HTTP, RxJS, Pipes, Environments, Resolvers, Reutilizacion de componentes
+En esta aplicacion hice uso de Estructuramiento de Carpetas, Tailwind, Sass, Interceptors, Peticiones HTTP, RxJS, Pipes, Environments, Resolvers, Reutilizacion de componentes, Reactive Forms
 
 Empece estructurando las carpetas para un mejor orden a medida que escala el proyecto, como tambien haciendo uso de un Interceptor de Autenticacion con un query params, utilizandolo para la API que requiere autenticacion mediante token para manipular las solicitudes y respuestas HTTP de manera centralizada y consistente en toda la aplicacion.
 Dentro del servicio hacemos la peticion http con el endpoint para recuperar todos los juegos y mostrarlos en pantalla mediante un Json Pipe para mostrar los datos en pantalla y empezar a manipularlos.
@@ -19,5 +19,7 @@ Aprovechando la busqueda de todos los juegos le aplicamos tambien la busqueda de
 el behaviorSubject se hace para emitir valores pero al estar en privado hice el queryString$ asi pasar los valores en setQueryString para recibirlos en gamesPageComponente dentro del oninit me traigo el this.searchService.queryString$ para recibir los valores que emite con los parametros de busqueda de search: title y el setGames es donde va a hacer la busqueda de todos los juegos y para finalizar en topbarcomponente cada vez que el usuario escribe por el query el queryChange$ lo detecta y en base a eso hace la busqueda...
 
 Vamos a hacer uso de un Resolver para hacer un prefetch de datos antes de hacer el redirect para los juegos por id definiendolo en la ruta la cual nos va a llevar al detalle del juego.
+Estoy con problemas de que quiero el topbar con el swiper si, pero una vez seleccionado el juego por su id no quiero que aparezca haciendo esto el background addicional del juego ocuparia tanto topbar como main, estos datos para el background del juego para el details solo se encuentra en los datos por id, no venia incluido por la lista de juegos...
 
-Estoy con problemas de que quiero el topbar con el swiper si, pero una vez seleccionado el juego por su id no quiero que aparezca haciendo esto el background addicional del juego ocuparia tanto topbar como main...
+Herencia de componentes por medio de un componente abstracto, por medio del componente padre que es el abstracto, defini tanto las interfaces como tambien las inyecciones por medio del inject porque a la hora de extender la clase abstracta al componente hijo habria que pasarle las inyecciones por medio del constructor pero si tendriamos multiples herencias esto se volveria un caos, asi que en el componente padre hicimos uso del inject para evitar esto.
+Ya por ultimo para la clase abstracta seria eso, simplemente en el componente hijo extendemos el componente padre junto al super y si queremos especificar diversos parametros para esto lo hacemos por medio del override, a simple vista ya se puede ver en accion navegando a All Games y a Recently Games.
