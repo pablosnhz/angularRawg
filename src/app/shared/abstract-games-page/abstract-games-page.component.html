@@ -1,6 +1,11 @@
 
 <ng-container *ngIf="$loading(); else spinner">
-  <div *ngIf="searchDefaultFilters.showFilters">
+  <div *ngIf="searchDefaultFilters.showFilters"
+  infiniteScroll
+  [infiniteScrollDistance]="2"
+  [infiniteScrollThrottle]="50"
+  (scrolled)="onScroll()"
+  >
     <form class="flex gap-5 text-white" [formGroup]="form">
       <select
       formControlName="order"
@@ -31,8 +36,9 @@
 
       </select>
     </form>
+    <app-game-list class="break-inside-avoid inline-block mt-4" [gamesList]="$games()"></app-game-list>
   </div>
-  <app-game-list class="break-inside-avoid inline-block mt-4" [gamesList]="$games()"></app-game-list>
+
 </ng-container>
 
 <ng-template #spinner>

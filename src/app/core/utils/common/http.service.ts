@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, WritableSignal, signal } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, finalize, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
 import { Game, SearchResult } from 'src/app/core/models/game';
 import { SearchFilters } from '../../models/search-filters';
@@ -19,8 +19,13 @@ public queryString$ = this.queryString.asObservable();
 
 public $loading: WritableSignal<boolean> = signal(false);
 
+public nextUrl: string = '';
+
 searchGames( filters: SearchFilters ):Observable<SearchResult> {
   this.$loading.set(true);
+  if (this.nextUrl) {
+    return this.httpClient.get<SearchResult>(this.nextUrl)
+  }
   const params = new HttpParams({
     fromObject: {
       ...filters
@@ -30,8 +35,16 @@ searchGames( filters: SearchFilters ):Observable<SearchResult> {
 }
 
 setGames( games: Game[] ): void {
-  this.$games.set(games)
+  this.$games.update((values: Game[]) => {
+    return [...values, ...games]
+  })
 }
+
+
+setNextUrl( nextUrl: string ): void {
+  this.nextUrl = nextUrl
+}
+
 setQueryString( queryString: string ): void {
   this.queryString.next(queryString)
 }

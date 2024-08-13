@@ -9,7 +9,7 @@ import { Game } from 'src/app/core/models/game';
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./game-card.component.scss'],
   standalone: true,
-  imports: [ RouterModule, CommonModule, RouterLink ],
+  imports: [ RouterModule, CommonModule, RouterLink],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class GameCardComponent {
