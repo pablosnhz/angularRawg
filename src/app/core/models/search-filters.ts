@@ -4,5 +4,4 @@ export interface SearchFilters {
   page_size?: number;
   parent_platforms?: string,
   metacritic?: string;
-  showFilters?: boolean;
 }

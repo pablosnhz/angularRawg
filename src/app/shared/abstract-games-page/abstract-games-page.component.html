@@ -1,12 +1,12 @@
 
-<ng-container *ngIf="$loading(); else spinner">
-  <div *ngIf="searchDefaultFilters.showFilters"
+<ng-container *ngIf="!$loading(); else spinner">
+  <div
   infiniteScroll
   [infiniteScrollDistance]="2"
   [infiniteScrollThrottle]="50"
   (scrolled)="onScroll()"
   >
-    <form class="flex gap-5 text-white" [formGroup]="form">
+    <form class="flex gap-5 text-white" [formGroup]="form" *ngIf="abstractPageParams.showFilters">
       <select
       formControlName="order"
       class="text-sm rounded-lg block w-42 p-2.5 bg-[#1f1f1f] text-white outline-none"

@@ -32,14 +32,20 @@ searchGames( filters: SearchFilters ):Observable<SearchResult> {
     }
    });
   return this.httpClient.get<SearchResult>(environment.API_URL + 'games', { params })
+  .pipe(
+    finalize(() => this.$loading.set(false))
+  )
 }
+
+// setGames( games: Game[] ): void {
+//   this.$games.set(games)
+// }
 
 setGames( games: Game[] ): void {
   this.$games.update((values: Game[]) => {
     return [...values, ...games]
   })
 }
-
 
 setNextUrl( nextUrl: string ): void {
   this.nextUrl = nextUrl

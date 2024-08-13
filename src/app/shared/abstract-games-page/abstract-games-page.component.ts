@@ -10,6 +10,7 @@ import { RouterOutlet } from '@angular/router';
 import { SearchFilters } from 'src/app/core/models/search-filters';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { AbstractGamesPageParams } from 'src/app/core/models/abstract-games-page-params';
 
 @Component({
   selector: 'app-abstract-games-page',
@@ -34,6 +35,9 @@ export abstract class AbstractGamesPageComponent implements OnInit{
   searchDefaultFilters: SearchFilters = {
     search: '',
     page_size: 50,
+  }
+
+  abstractPageParams: AbstractGamesPageParams = {
     showFilters: true
   }
 
@@ -80,12 +84,13 @@ export abstract class AbstractGamesPageComponent implements OnInit{
       switchMap((filters: SearchFilters) => this.searchService.searchGames(filters)),
       takeUntil(this.destroy$)
     ).subscribe((data) => {
-      this.searchService.setNextUrl(data.next)
-      this.searchService.setGames(data.results)
+      this.searchService.setNextUrl(data.next);
+      this.searchService.setGames(data.results);
     });
   };
 
-  onScroll(): void{
-    this.onFiltersChange$.next(this.searchDefaultFilters);
+  onScroll(): void {
+      this.onFiltersChange$.next(this.searchDefaultFilters);
   }
+
 }
