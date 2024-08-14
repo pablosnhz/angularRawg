@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit, signal, Signal, WritableSignal } from '@angular/core';
-import { Subject, switchMap, takeUntil, tap } from 'rxjs';
-import { Game } from 'src/app/core/models/game';
+import { BehaviorSubject, exhaustMap, Subject, switchMap, takeUntil, tap } from 'rxjs';
+import { Game, SearchResult } from 'src/app/core/models/game';
 import { AutoDestroyService } from 'src/app/core/utils/auto-destroy.service';
 import { searchService } from 'src/app/core/utils/common/http.service';
 import { SpinnerComponent } from '../spinner/spinner.component';
@@ -26,9 +26,10 @@ export abstract class AbstractGamesPageComponent implements OnInit{
   private readonly destroy$: AutoDestroyService = inject(AutoDestroyService);
   private readonly fb: FormBuilder = inject(FormBuilder);
 
-  $games: Signal<Game[]> = this.searchService.$games;
+  $games = this.searchService.$games;
   $loading: Signal<boolean> = this.searchService.$loading;
-  onFiltersChange$: Subject<SearchFilters> = new Subject<SearchFilters>();
+  filters$: Subject<SearchFilters> = new Subject<SearchFilters>();
+  scrolled$: Subject<void> = new Subject<void>();
 
   orderPreference: string = 'Relevance'
 
@@ -49,6 +50,7 @@ export abstract class AbstractGamesPageComponent implements OnInit{
     this.initForm();
     this.subscribeToFilterChanges();
     this.subscribeToQueryChanges();
+    this.subscribeToOnScroll();
   }
 
   initForm(): void {
@@ -64,7 +66,7 @@ export abstract class AbstractGamesPageComponent implements OnInit{
     this.searchService.queryString$
     .pipe(takeUntil(this.destroy$))
     .subscribe((query: string) => {
-      this.onFiltersChange$.next({ ...this.searchDefaultFilters, search: query });
+      this.filters$.next({ ...this.searchDefaultFilters, search: query });
     });
   }
 
@@ -74,23 +76,31 @@ export abstract class AbstractGamesPageComponent implements OnInit{
       const platform = this.form.controls['platform'].value;
 
 
-      this.onFiltersChange$.next({ ...this.searchDefaultFilters, ordering, parent_platforms: platform });
+      this.filters$.next({ ...this.searchDefaultFilters, ordering, parent_platforms: platform });
     });
   };
 
   subscribeToFilterChanges(): void {
-    this.onFiltersChange$
+    this.filters$ = new BehaviorSubject<SearchFilters>({ ...this.searchDefaultFilters});
+    this.filters$
     .pipe(
+      tap(() => this.$games.set([])),
       switchMap((filters: SearchFilters) => this.searchService.searchGames(filters)),
       takeUntil(this.destroy$)
-    ).subscribe((data) => {
-      this.searchService.setNextUrl(data.next);
-      this.searchService.setGames(data.results);
-    });
+    ).subscribe((data: SearchResult) => this.$games.set(data.results));
   };
 
-  onScroll(): void {
-      this.onFiltersChange$.next(this.searchDefaultFilters);
+  subscribeToOnScroll(): void {
+    this.scrolled$.pipe(
+      exhaustMap(()=> {
+        return this.searchService.nextPageScroll();
+      }),
+      takeUntil(this.destroy$)
+    ).subscribe((data: SearchResult) => {
+      this.$games.update((values: Game[]) => {
+        return [...values, ...data.results]
+      })
+    })
   }
 
 }

@@ -1,48 +1,47 @@
-
-<ng-container *ngIf="!$loading(); else spinner">
-  <div
+<div
   infiniteScroll
   [infiniteScrollDistance]="2"
   [infiniteScrollThrottle]="50"
-  (scrolled)="onScroll()"
+  (scrolled)="scrolled$.next()"
   >
-    <form class="flex gap-5 text-white" [formGroup]="form" *ngIf="abstractPageParams.showFilters">
-      <select
-      formControlName="order"
-      class="text-sm rounded-lg block w-42 p-2.5 bg-[#1f1f1f] text-white outline-none"
-      >
-        <option selected disabled hidden>Order by: {{ orderPreference }}</option>
-        <option value="-relevance">Relevance</option>
-        <option value="-created">Date added</option>
-        <option value="name">Name</option>
-        <option value="-released">Release date</option>
-        <option value="-added">Popularity</option>
-        <option value="-rating">Average rating</option>
-      </select>
-      <select
-      formControlName="platform"
-      class="text-sm rounded-lg block w-42 p-2.5 bg-[#1f1f1f] text-white outline-none"
-      >
-        <option selected disabled hidden>Platforms</option>
-        <option disabled>Platforms</option>
-        <option value="1">PC</option>
-        <option value="2">Playstation</option>
-        <option value="3">Xbox</option>
-        <option value="4">iOS</option>
-        <option value="5">Android</option>
-        <option value="6">Apple</option>
-        <option value="7">Linux</option>
-        <option value="8">Nintendo</option>
+  <div *ngIf="abstractPageParams.showFilters">
+    <form class="flex gap-5 text-white" [formGroup]="form" >
+          <select
+          formControlName="order"
+          class="text-sm rounded-lg block w-42 p-2.5 bg-[#1f1f1f] text-white outline-none"
+          >
+            <option selected disabled hidden>Order by: {{ orderPreference }}</option>
+            <option value="-relevance">Relevance</option>
+            <option value="-created">Date added</option>
+            <option value="name">Name</option>
+            <option value="-released">Release date</option>
+            <option value="-added">Popularity</option>
+            <option value="-rating">Average rating</option>
+          </select>
+          <select
+          formControlName="platform"
+          class="text-sm rounded-lg block w-42 p-2.5 bg-[#1f1f1f] text-white outline-none"
+          >
+            <option selected disabled hidden>Platforms</option>
+            <option disabled>Platforms</option>
+            <option value="1">PC</option>
+            <option value="2">Playstation</option>
+            <option value="3">Xbox</option>
+            <option value="4">iOS</option>
+            <option value="5">Android</option>
+            <option value="6">Apple</option>
+            <option value="7">Linux</option>
+            <option value="8">Nintendo</option>
 
-      </select>
-    </form>
-    <app-game-list class="break-inside-avoid inline-block mt-4" [gamesList]="$games()"></app-game-list>
-  </div>
+          </select>
+        </form>
+      </div>
+      <app-game-list class="break-inside-avoid inline-block mt-4" [gamesList]="$games()"></app-game-list>
+      <div *ngIf="$loading()" class="fixed inset-0 flex justify-center items-center">
+        <app-spinner class="flex justify-center items-center h-screen"></app-spinner>
+      </div>
 
-</ng-container>
+    </div>
 
-<ng-template #spinner>
-  <div class="fixed inset-0 flex justify-center items-center z-50">
-    <app-spinner class="flex justify-center items-center h-screen"></app-spinner>
-  </div>
-</ng-template>
+
+
