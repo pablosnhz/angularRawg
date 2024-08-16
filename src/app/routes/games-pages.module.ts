@@ -7,6 +7,8 @@ import { GamesPageComponent } from './games-page/pages/games-page/games-page.com
 import { GameIdResolver } from '../core/resolvers/game-id.resolver';
 import { GameListComponent } from '../shared/game-list/game-list.component';
 import { RecentlyPagesPageComponent } from './games-page/pages/recently-pages-page/recently-pages-page.component';
+import { GenresPageComponent } from './games-page/pages/genres-page/genres-page.component';
+import { GenreDatesComponent } from './games-page/pages/genre-dates/genre-dates.component';
 
 const routes: Routes = [
   {
@@ -28,7 +30,10 @@ const routes: Routes = [
     },
     component: GameDetailComponent
   },
-
+  {
+    path: 'genre/:genre',
+    component: GenreDatesComponent
+  }
 ]
 
 @NgModule({
@@ -39,6 +44,7 @@ const routes: Routes = [
   ],
   exports: [],
   declarations: [
+
   ],
   providers: [AutoDestroyService, GameIdResolver],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

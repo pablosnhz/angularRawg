@@ -1,6 +1,7 @@
 import { MainLayoutComponent } from "./core/main-layout/main-layout.component";
 import { Routes } from '@angular/router';
 import { HomePageComponent } from './routes/games-page/pages/home-page/home-page.component';
+import { GenresPageComponent } from "./routes/games-page/pages/genres-page/genres-page.component";
 
 export const routes: Routes = [
   {
@@ -10,6 +11,10 @@ export const routes: Routes = [
       {
         path: '',
         component: HomePageComponent
+      },
+      {
+        path: 'genres',
+        component: GenresPageComponent
       },
       {
         path: 'games',

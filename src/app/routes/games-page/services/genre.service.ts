@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, signal, WritableSignal } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Genre } from 'src/app/core/models/game';
+import { Genre, SearchResult } from 'src/app/core/models/game';
+import { GenresResult } from 'src/app/core/models/genres';
 import { environment } from 'src/environments/environment.development';
 
 @Injectable({
@@ -9,11 +10,17 @@ import { environment } from 'src/environments/environment.development';
 })
 export class GenreService {
 
-  genres: WritableSignal<Genre[]> = signal([])
+  $genres: WritableSignal<Genre[]> = signal([])
+  $loading: WritableSignal<boolean> = signal(false)
 
   constructor( private httpClient: HttpClient ) { }
 
-  getGenres(): Observable<Genre[]> {
-    return this.httpClient.get<Genre[]>(`${environment.API_URL}genres`)
+  getGenres(): Observable<GenresResult> {
+    this.$loading.set(true);
+    return this.httpClient.get<GenresResult>(`${environment.API_URL}genres`)
+  }
+
+  setGenres(genre: Genre[]) {
+    this.$genres.set(genre)
   }
 }

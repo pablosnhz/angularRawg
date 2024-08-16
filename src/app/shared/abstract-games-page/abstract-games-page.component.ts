@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit, signal, Signal, WritableSignal } from '@angular/core';
-import { BehaviorSubject, exhaustMap, Subject, switchMap, takeUntil, tap } from 'rxjs';
-import { Game, SearchResult } from 'src/app/core/models/game';
+import { BehaviorSubject, exhaustMap, Subject, switchMap, take, takeUntil, tap } from 'rxjs';
+import { Game, Genre, SearchResult } from 'src/app/core/models/game';
 import { AutoDestroyService } from 'src/app/core/utils/auto-destroy.service';
 import { searchService } from 'src/app/core/utils/common/http.service';
 import { SpinnerComponent } from '../spinner/spinner.component';
@@ -11,6 +11,8 @@ import { SearchFilters } from 'src/app/core/models/search-filters';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { AbstractGamesPageParams } from 'src/app/core/models/abstract-games-page-params';
+import { GenreService } from 'src/app/routes/games-page/services/genre.service';
+import { GenresResult } from 'src/app/core/models/genres';
 
 @Component({
   selector: 'app-abstract-games-page',
@@ -24,10 +26,12 @@ import { AbstractGamesPageParams } from 'src/app/core/models/abstract-games-page
 export abstract class AbstractGamesPageComponent implements OnInit{
   private readonly searchService: searchService = inject(searchService);
   private readonly destroy$: AutoDestroyService = inject(AutoDestroyService);
+  private readonly genreService: GenreService = inject(GenreService);
   private readonly fb: FormBuilder = inject(FormBuilder);
 
   $games = this.searchService.$games;
   $loading: Signal<boolean> = this.searchService.$loading;
+  $genres: Signal<Genre[]> = this.genreService.$genres;
   filters$: Subject<SearchFilters> = new Subject<SearchFilters>();
   scrolled$: Subject<void> = new Subject<void>();
 
@@ -39,7 +43,8 @@ export abstract class AbstractGamesPageComponent implements OnInit{
   }
 
   abstractPageParams: AbstractGamesPageParams = {
-    showFilters: true
+    showFilters: true,
+    showTitle: false
   }
 
   form: FormGroup;
@@ -48,9 +53,12 @@ export abstract class AbstractGamesPageComponent implements OnInit{
 
   ngOnInit(): void {
     this.initForm();
+
+    this.getGenres();
     this.subscribeToFilterChanges();
     this.subscribeToQueryChanges();
     this.subscribeToOnScroll();
+
   }
 
   initForm(): void {
@@ -75,10 +83,18 @@ export abstract class AbstractGamesPageComponent implements OnInit{
       const ordering = this.form.controls['order'].value;
       const platform = this.form.controls['platform'].value;
 
-
-      this.filters$.next({ ...this.searchDefaultFilters, ordering, parent_platforms: platform });
+      this.filters$.next({ ...this.searchDefaultFilters, ordering, parent_platforms: platform,
+      });
     });
   };
+
+  subscribeToGenres(): void {
+    this.form.valueChanges.pipe(takeUntil(this.destroy$)).subscribe(()=>{
+      const genres = this.form.controls['genre'].value;
+
+      this.filters$.next({ ...this.searchDefaultFilters, genres: genres });
+    })
+  }
 
   subscribeToFilterChanges(): void {
     this.filters$ = new BehaviorSubject<SearchFilters>({ ...this.searchDefaultFilters});
@@ -101,6 +117,12 @@ export abstract class AbstractGamesPageComponent implements OnInit{
         return [...values, ...data.results]
       })
     })
+  }
+
+  getGenres(): void {
+    this.genreService.getGenres().pipe(
+      take(1))
+      .subscribe((genres: GenresResult) => this.genreService.setGenres(genres.results));
   }
 
 }

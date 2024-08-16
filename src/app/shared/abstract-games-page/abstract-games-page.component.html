@@ -4,6 +4,9 @@
   [infiniteScrollThrottle]="50"
   (scrolled)="scrolled$.next()"
   >
+  <div *ngIf="abstractPageParams.showTitle" class="text-white flex flex-col gap-3 text-center sm:text-left py-2">
+    <p class="text-4xl md:text-4xl lg:text-6xl xl:text-6xl font-bold mb-3">{{ abstractPageParams.title }}</p>
+  </div>
   <div *ngIf="abstractPageParams.showFilters">
     <form class="flex gap-5 text-white" [formGroup]="form" >
           <select
