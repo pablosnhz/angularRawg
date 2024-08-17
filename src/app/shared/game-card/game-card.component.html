@@ -33,7 +33,7 @@
       <span class="text-xs text-slate-400 text-[#636363]">Genres</span>
         <div class="flex space-x-1">
           <div class="flex" *ngFor="let genres of gameCard.genres">
-            <a [routerLink]="['/genre', genres.name]">
+            <a [routerLink]="['/games/genre', genres.name.toLocaleLowerCase()]">
               <span class="text-xs text-white underline hover:text-[#636363]">{{ genres.name }}</span>
             </a>
           </div>

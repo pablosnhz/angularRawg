@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { AbstractGamesPageParams } from 'src/app/core/models/abstract-games-page-params';
+import { Genre } from 'src/app/core/models/genres';
 import { SearchFilters } from 'src/app/core/models/search-filters';
 import { AbstractGamesPageComponent } from 'src/app/shared/abstract-games-page/abstract-games-page.component';
 import { GameListComponent } from 'src/app/shared/game-list/game-list.component';
@@ -30,24 +31,33 @@ export class GenreDatesComponent extends AbstractGamesPageComponent implements O
     title: 'Genre'
   }
 
-  constructor(){
+
+  constructor(private router: Router){
     super();
-    this.searchDefaultFilters = {
-      ...this.searchDefaultFilters,
-    }
+    // this.searchDefaultFilters = {
+    //   ...this.searchDefaultFilters,
+    // }
   }
 
   override ngOnInit(): void {
-    super.ngOnInit();
-    this.setConfigParent();
-    console.log(this.genre)
+    if(!this.$genres().find((genre) => genre.name.toLowerCase() === this.genre.toLowerCase())){
+      this.router.navigate(['/'])
+    } else {
+      this.setConfigParent();
+      super.ngOnInit();
+    }
+    // console.log(this.genre)
   }
 
   setConfigParent(): void {
-    this.abstractPageParams.title = this.genre;
+    this.abstractPageParams.title = this.genre.slice(0, 1).toUpperCase() + this.genre.slice(1);
+
+    const genre: Genre = this.$genres().find((genre) => genre.name.toLowerCase() === this.genre.toLowerCase())!;
     this.searchDefaultFilters = {
       ...this.searchDefaultFilters,
-      genres: this.genre
+      // genres: this.genre
+      genres: genre.id.toString()
     }
   }
 }
+

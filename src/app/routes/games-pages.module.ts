@@ -32,8 +32,11 @@ const routes: Routes = [
   },
   {
     path: 'genre/:genre',
-    component: GenreDatesComponent
-  }
+    component: GenreDatesComponent,
+      data: {
+        doNotReuse: true,
+      }
+  },
 ]
 
 @NgModule({

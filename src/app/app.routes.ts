@@ -14,7 +14,7 @@ export const routes: Routes = [
       },
       {
         path: 'genres',
-        component: GenresPageComponent
+        component: GenresPageComponent,
       },
       {
         path: 'games',
