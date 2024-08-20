@@ -18,6 +18,7 @@ export class GenreService {
   getGenres(): Observable<GenresResult> {
     this.$loading.set(true);
     return this.httpClient.get<GenresResult>(`${environment.API_URL}genres`)
+
   }
 
   setGenres(genre: Genre[]) {

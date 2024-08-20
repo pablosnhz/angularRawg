@@ -12,7 +12,6 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { AbstractGamesPageParams } from 'src/app/core/models/abstract-games-page-params';
 import { GenreService } from 'src/app/routes/games-page/services/genre.service';
-import { GenresResult } from 'src/app/core/models/genres';
 
 @Component({
   selector: 'app-abstract-games-page',
@@ -54,7 +53,7 @@ export abstract class AbstractGamesPageComponent implements OnInit{
   ngOnInit(): void {
     this.initForm();
 
-    this.getGenres();
+    // this.getGenres();
     this.subscribeToFilterChanges();
     this.subscribeToQueryChanges();
     this.subscribeToOnScroll();
@@ -88,14 +87,6 @@ export abstract class AbstractGamesPageComponent implements OnInit{
     });
   };
 
-  subscribeToGenres(): void {
-    this.form.valueChanges.pipe(takeUntil(this.destroy$)).subscribe(()=>{
-      const genres = this.form.controls['genre'].value;
-
-      this.filters$.next({ ...this.searchDefaultFilters, genres: genres });
-    })
-  }
-
   subscribeToFilterChanges(): void {
     this.filters$ = new BehaviorSubject<SearchFilters>({ ...this.searchDefaultFilters});
     this.filters$
@@ -119,10 +110,10 @@ export abstract class AbstractGamesPageComponent implements OnInit{
     })
   }
 
-  getGenres(): void {
-    this.genreService.getGenres().pipe(
-      take(1))
-      .subscribe((genres: GenresResult) => this.genreService.setGenres(genres.results));
-  }
+  // getGenres(): void {
+  //   this.genreService.getGenres().pipe(
+  //     take(1))
+  //     .subscribe((genres: GenresResult) => this.genreService.setGenres(genres.results));
+  // }
 
 }

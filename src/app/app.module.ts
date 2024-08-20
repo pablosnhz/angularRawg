@@ -27,7 +27,8 @@ import { RouteReuseStrategyChange } from './core/models/route-reuse-strategy';
     AutoDestroyService,
     [provideRouter([
       { component: GenreDatesComponent, path: 'test'},
-    ], withComponentInputBinding())],
+    ],
+    withComponentInputBinding())],
     {
       provide: RouteReuseStrategy,
       useClass: RouteReuseStrategyChange

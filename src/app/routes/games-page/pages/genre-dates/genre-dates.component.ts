@@ -28,6 +28,7 @@ export class GenreDatesComponent extends AbstractGamesPageComponent implements O
   override abstractPageParams: AbstractGamesPageParams = {
     showTitle: true,
     showFilters: false,
+    // pusimos genre por defecto pero lo vamos a obtener por la url
     title: 'Genre'
   }
 
