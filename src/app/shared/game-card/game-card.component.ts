@@ -2,6 +2,8 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, CUSTOM_ELEMENTS_SCHEMA, Input } from '@angular/core';
 import { RouterLink, RouterModule } from '@angular/router';
 import { Game } from 'src/app/core/models/game';
+import { FavoritesService } from 'src/app/routes/games-page/services/favorites.service';
+import { User } from '../../core/models/user';
 
 @Component({
   selector: 'app-game-card',
@@ -14,4 +16,10 @@ import { Game } from 'src/app/core/models/game';
 })
 export class GameCardComponent {
   @Input({ required: true }) gameCard: Game;
+
+  constructor(private favoritesServices: FavoritesService) { }
+
+  addGameToFavorites(): void {
+    // this.User.addGame(this.gameCard);
+  }
 }
