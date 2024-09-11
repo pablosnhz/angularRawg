@@ -10,5 +10,4 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MyListFavComponent {
-
 }
