@@ -15,7 +15,7 @@ export class FavoritesService {
 
   set(favorites: Game[]){
     sessionStorage.setItem('favorites', JSON.stringify(favorites));
-    this.$user().favorites = new Set(favorites);
+    this.$user.set(new User(this, favorites));
   }
 
   get(){

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, CUSTOM_ELEMENTS_SCHEMA, Input, Signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, CUSTOM_ELEMENTS_SCHEMA, Input, Signal } from '@angular/core';
 import { RouterLink, RouterModule } from '@angular/router';
 import { Game } from 'src/app/core/models/game';
 import { FavoritesService } from 'src/app/routes/games-page/services/favorites.service';
@@ -16,12 +16,19 @@ import { User } from '../../core/models/user';
 })
 export class GameCardComponent {
   @Input({ required: true }) gameCard: Game;
-  $user: Signal<User | null> = this.favoritesServices.$user;
+  $user: Signal<User | null> = this.favoriteService.$user;
 
-  constructor(private favoritesServices: FavoritesService) { }
+  // para el boton de clases y favoritos
+  $favorites: Signal<boolean> = computed(() => {
+    Array.from(this.favoriteService.$user().favorites().values() ?? new Set())
+    return this.favoriteService.$user().favorites().has(this.gameCard.id);
+  }
+);
+
+  constructor(private favoriteService: FavoritesService) { }
 
   addGameToFavorites(): void {
-    console.log(this.$user());
+    // console.log(this.$user()?.addGame(this.gameCard));
     this.$user()?.addGame(this.gameCard);
   }
 }
