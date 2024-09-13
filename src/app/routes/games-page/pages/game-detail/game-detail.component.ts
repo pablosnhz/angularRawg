@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { Component, ChangeDetectionStrategy, OnInit, Input, Signal } from "@angular/core";
+import { Component, ChangeDetectionStrategy, OnInit, Input, Signal, computed } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { Game } from "src/app/core/models/game";
 import { GameDetails } from "src/app/core/models/game-details";
@@ -22,6 +22,11 @@ gameDetails: GameDetails;
 isExpanded: boolean = false;
 $user: Signal<User | null> = this.favoriteService.$user;
 
+$favoritesDetail: Signal<boolean> = computed(() => {
+  Array.from(this.favoriteService.$user().favorites().values() ?? new Set())
+  return this.favoriteService.$user().favorites().has(this.gameDetails.id);
+  }
+);
 
 constructor( private route: ActivatedRoute, private favoriteService: FavoritesService ) { }
 
@@ -30,8 +35,8 @@ constructor( private route: ActivatedRoute, private favoriteService: FavoritesSe
   }
 
   addGameToFavoritesDetail() {
-    // this.favoriteService.$user().addGameDetail(this.gameDetails);
-    // console.log(this.$user()?.favorites());
+    this.$user()?.addGame(this.gameDetails);
+    console.log(this.$user()?.favorites());
   }
 
   toggleText() {

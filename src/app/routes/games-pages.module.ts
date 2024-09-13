@@ -49,7 +49,7 @@ const routes: Routes = [
     resolve: {
       game: GameIdResolver
     },
-    component: GameDetailComponent
+    component: GameDetailComponent,
   },
   {
     path: 'genre/:genre',

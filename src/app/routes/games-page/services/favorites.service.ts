@@ -19,12 +19,6 @@ export class FavoritesService {
     this.$user.set(new User(this, favorites));
   }
 
-  // agregue el setDetail para anadir a la lista de favoritos
-  setDetail(favorites: GameDetails[]){
-    sessionStorage.setItem('favorites', JSON.stringify(favorites));
-    this.$user.set(new User(this, this.get()));
-  }
-
   get(){
     const inLocalStorage = sessionStorage.getItem('favorites');
     if(inLocalStorage){
@@ -32,11 +26,4 @@ export class FavoritesService {
     }
     return [];
   }
-
-  // update(){
-  //   const inLocalStorage = sessionStorage.getItem('favorites') ;
-  //   if(inLocalStorage){
-  //     this.set(JSON.parse(inLocalStorage));
-  //   }
-  // }
 }
