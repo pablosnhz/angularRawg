@@ -31,7 +31,7 @@
     <div class="flex-col gap-3 hidden group-hover:flex">
 
     <div class="flex justify-between">
-      <span class="text-xs text-slate-400 text-[#636363]">Genres</span>
+      <span class="text-xs text-slate-400">Genres</span>
         <div class="flex space-x-1">
           <div class="flex" *ngFor="let genres of gameCard.genres">
             <a [routerLink]="['/games/genre', genres.name.toLocaleLowerCase()]">

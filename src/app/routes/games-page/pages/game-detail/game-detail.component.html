@@ -10,7 +10,11 @@
       <div class="text-[#45d66b]">Rating: {{ gameDetails.rating }}</div>
       <p class="text-white 2xl:text-7xl font-bold">{{ gameDetails.name }}</p>
       <div>
-        <button type="button" class="text-white hover:text-[#000000] mt-3 bg-[#636363] hover:bg-gray-100 focus:ring-4 focus:ring-gray-900 rounded-lg text-sm px-6 py-2.5 mb-5 opacity-75">Add to my list</button>
+        <button
+        type="button"
+        class="text-white hover:text-[#000000] mt-3 bg-[#636363] hover:bg-gray-100 focus:ring-4 focus:ring-gray-900 rounded-lg text-sm px-6 py-2.5 mb-5 opacity-75"
+        (click)="addGameToFavoritesDetail()"
+        >Add to my list</button>
       </div>
       <div class="text-white">
         <p [ngClass]="{ 'line-clamp-10': !isExpanded, 'line-clamp-none': isExpanded }" [innerHTML]="gameDetails.description"></p>

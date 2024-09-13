@@ -30,5 +30,7 @@ export class GameCardComponent {
   addGameToFavorites(): void {
     // console.log(this.$user()?.addGame(this.gameCard));
     this.$user()?.addGame(this.gameCard);
+    console.log(this.$user()?.favorites());
+
   }
 }
