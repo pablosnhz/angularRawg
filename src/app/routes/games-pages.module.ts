@@ -52,6 +52,7 @@ const routes: Routes = [
     component: GameDetailComponent,
   },
   {
+    // pagina de generos
     path: 'genre/:genre',
     component: GenreDatesComponent,
       data: {

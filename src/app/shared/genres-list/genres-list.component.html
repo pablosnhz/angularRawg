@@ -1,0 +1,7 @@
+<div class="text-white flex flex-col gap-3 text-center sm:text-left py-3">
+  <p class="text-4xl md:text-4xl lg:text-6xl xl:text-6xl font-bold mb-3">Genres</p>
+</div>
+<div *ngFor="let game of genresList">
+  <app-genres-page [genresCard]="game"></app-genres-page>
+</div>
+

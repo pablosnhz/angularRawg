@@ -12,7 +12,6 @@ import { FavoritesService } from '../../services/favorites.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FavoritesComponent {
-  // $games: Signal<Game[]> = computed(() => this.favoritesService.$user().favorites ?? []);
 
   $games: Signal<Game[]> = computed(() => Array.from(this.favoritesService.$user().favorites().values() ?? []));
 

@@ -28,7 +28,6 @@ export class GameCardComponent {
   constructor(private favoriteService: FavoritesService) { }
 
   addGameToFavorites(): void {
-    // console.log(this.$user()?.addGame(this.gameCard));
     this.$user()?.addGame(this.gameCard);
     console.log(this.$user()?.favorites());
 
