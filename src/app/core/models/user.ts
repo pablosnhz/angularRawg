@@ -36,17 +36,20 @@ addGame(game: Game | GameDetails) {
 addGenre(genre: Genre) {
   if (this.favoriteGenre().has(genre.id)) {
     // delete refresh
-    this.favoriteGenre.update((favorites) => {
+    this.favorites.update((favorites) => {
       this.favoriteGenre().delete(genre.id);
       return favorites
     });
   } else {
-    this.favoriteGenre.update((favorites) => {
-      this.favoriteGenre().set(genre.id, genre);
+    this.favorites.update((favorites) => {
+      // this.favorites().add(game);
+      this.favoriteGenre().set(genre.id, genre as Genre);
       return favorites
-  });
-  this.favoritesService.setGenres(Array.from(this.favoriteGenre().values()));
-}
+    });
+  }
+// this.favoritesService.setGenre(genre);
+this.favoritesService.$favoriteGenres.set(Array.from(this.favoriteGenre().values()));
+console.log(this.favoriteGenre().values());
 
 }
 }

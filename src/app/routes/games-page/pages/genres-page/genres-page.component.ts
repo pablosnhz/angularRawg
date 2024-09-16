@@ -7,6 +7,7 @@ import { SpinnerComponent } from 'src/app/shared/spinner/spinner.component';
 import { take } from 'rxjs';
 import { GenresResult } from 'src/app/core/models/genres';
 import { FavoritesService } from '../../services/favorites.service';
+import { User } from 'src/app/core/models/user';
 
 @Component({
   selector: 'app-genres-page',
@@ -18,9 +19,9 @@ import { FavoritesService } from '../../services/favorites.service';
 })
 export class GenresPageComponent implements OnInit {
 
-  @Input({ required: true }) genresCard: Genre;
+  @Input() genresCard: Genre;
   $genres: Signal<Genre[]> = this.genreService.$genres;
-  // $user: Signal<User | null> = this.favoritesService.$user;
+  $user: Signal<User | null> = this.favoritesService.$user;
 
   constructor(private genreService: GenreService, private favoritesService: FavoritesService) { }
 
@@ -28,11 +29,10 @@ export class GenresPageComponent implements OnInit {
     this.getGenres();
   }
 
-  followGenre(): void {
-    // console.log(`follow genre ${this.$genres().map(genre => genre.name)}`);
-
-    // this.$genres().forEach((genre) => this.favoritesService.setGenres([genre]));
-    // this.$user().addGenre(this.$genres().find((genre) => genre.id === this.$genres().length) as Genre);
+  followGenre(genre: Genre): void {
+    // console.log('Followed genre:', genre.name);
+    this.$user()?.addGenre(genre);
+    // this.favoritesService.addGenreToFavorites(genre);
   }
 
   getGenres(): void {
