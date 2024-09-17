@@ -16,13 +16,13 @@ import { RouterLink } from '@angular/router';
 })
 export class FavoritesGenresComponent {
 
-  $favoriteGenres: Signal<Genre[]> = this.favoritesService.$favoriteGenres;
+  $favoriteGenres: Signal<Genre[]> = computed(() => Array.from(this.favoritesService.$user().favoriteGenre().values() ?? []));
 
-  $favoriteGenresList: Signal<Genre[]> = computed(() => {
-    return this.$favoriteGenres().map(genre => {
-      return this.genresService.$genres().filter(genreList => genreList.id === genre.id)[0];
-    });
-  });
+  // $favoriteGenresList: Signal<Genre[]> = computed(() => {
+  //   return this.$favoriteGenres().map(genre => {
+  //     return this.genresService.$genres().filter(genreList => genreList.id === genre.id)[0];
+  //   });
+  // });
 
   constructor( private favoritesService: FavoritesService, private genresService: GenreService ){}
 

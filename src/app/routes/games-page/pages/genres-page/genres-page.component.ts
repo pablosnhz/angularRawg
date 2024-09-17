@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit, Signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, Input, OnInit, Signal } from '@angular/core';
 import { GenreService } from '../../services/genre.service';
 import { Genre } from 'src/app/core/models/genres';
 import { RouterLink } from '@angular/router';
@@ -23,6 +23,11 @@ export class GenresPageComponent implements OnInit {
   $genres: Signal<Genre[]> = this.genreService.$genres;
   $user: Signal<User | null> = this.favoritesService.$user;
 
+  $favoriteGenres: Signal<boolean> = computed(() => {
+    Array.from(this.favoritesService.$user().favoriteGenre().values() ?? new Set())
+    return this.favoritesService.$user().favoriteGenre().has(this.genresCard.id);
+  });
+
   constructor(private genreService: GenreService, private favoritesService: FavoritesService) { }
 
   ngOnInit(): void {
@@ -30,7 +35,6 @@ export class GenresPageComponent implements OnInit {
   }
 
   followGenre(genre: Genre): void {
-    // console.log('Followed genre:', genre.name);
     this.$user()?.addGenre(genre);
     // this.favoritesService.addGenreToFavorites(genre);
   }

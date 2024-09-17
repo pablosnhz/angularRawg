@@ -12,9 +12,20 @@
         class="text-white hover:text-[#000000] mt-3 bg-gray-900 hover:bg-gray-100 focus:ring-4 focus:ring-gray-900 rounded-lg text-sm px-6 py-2.5 mb-2 opacity-75"
 
         >
-        {{ $favoriteGenresList() ? 'Unfollow' : 'Follow' }}
+        Follow
+        <!-- {{ $favoriteGenresList() ? 'Unfollow' : 'Follow' }} -->
       </button>
       </figcaption>
     </figure>
   </div>
 </article>
+
+
+<!-- <app-genres-page [genresCard]="$favoriteGenres()"></app-genres-page> -->
+
+
+<!-- ! HACIENDO PRUEBAS EL COMPONENTE LLEGA Y AL TOCAR EL BOTON SE EJECUTA EL TOGGLE, EL CUAL DEBERIA SACAR LA CARD EN VEZ DEL COMPONENTE -->
+<!--
+<app-genres-page *ngFor="let genre of $favoriteGenres()">
+  <p>{{ genre.name }}</p>
+</app-genres-page> -->

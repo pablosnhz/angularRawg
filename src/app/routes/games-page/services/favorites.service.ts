@@ -12,7 +12,7 @@ export class FavoritesService {
 
   constructor() {
     this.$user = signal<User>(new User(this, this.get(), this.getGenre()));
-    // this.$favoriteGenres = signal<Genre[]>(JSON.parse(sessionStorage.getItem('genres') || '[]'));
+    this.$favoriteGenres = signal<Genre[]>(JSON.parse(sessionStorage.getItem('genres') || '[]'));
   }
 
   set(favorites: Game[]){
@@ -36,17 +36,24 @@ export class FavoritesService {
     return [];
   }
 
-  setGenre(genres: Genre): void {
-    const currentFavorites = this.$favoriteGenres();
-    const isAlreadyFavorite = currentFavorites.some(fav => genres.id === fav.id);
-    sessionStorage.setItem('genres', JSON.stringify([...currentFavorites, genres]));
+  setGenre(newGenre: Genre): void {
+    const currentGenres = this.$favoriteGenres();
+    const isAlreadyFavorite = currentGenres.some(fav => fav.id === newGenre.id);
 
     if (!isAlreadyFavorite) {
-      this.$favoriteGenres.set([...currentFavorites, genres]);
+      const updatedGenres = [...currentGenres, newGenre];
+      this.$favoriteGenres.set(updatedGenres);
+      sessionStorage.setItem('genres', JSON.stringify(updatedGenres));
+
+      this.$user.update((user) => new User(this, this.get(), updatedGenres));
+    } else {
+      const updatedGenres = currentGenres.filter(fav => fav.id !== newGenre.id);
+      this.$favoriteGenres.set(updatedGenres);
+      sessionStorage.setItem('genres', JSON.stringify(updatedGenres));
+
+      this.$user.update((user) => new User(this, this.get(), updatedGenres));
     }
-
-    this.$user.set(new User(this, this.get(), [...currentFavorites, genres]));
-
   }
+
 }
 
