@@ -12,6 +12,7 @@ import { GenreDatesComponent } from './games-page/pages/genre-dates/genre-dates.
 import { MyListFavComponent } from './games-page/pages/my-list-fav/my-list-fav.component';
 import { FavoritesComponent } from './games-page/pages/favorites/favorites.component';
 import { FavoritesGenresComponent } from './games-page/pages/favorites-genres/favorites-genres.component';
+import { MainGenreComponent } from './games-page/pages/main-genre/main-genre.component';
 
 const routes: Routes = [
   {

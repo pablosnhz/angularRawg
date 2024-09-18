@@ -17,31 +17,23 @@ import { User } from 'src/app/core/models/user';
   standalone: true,
   imports: [RouterLink, CommonModule, SpinnerComponent]
 })
-export class GenresPageComponent implements OnInit {
+export class GenresPageComponent {
 
   @Input() genresCard: Genre;
   $genres: Signal<Genre[]> = this.genreService.$genres;
-  $user: Signal<User | null> = this.favoritesService.$user;
+  $user: Signal<User | null> = this.favoritesService.$user
 
   $favoriteGenres: Signal<boolean> = computed(() => {
-    Array.from(this.favoritesService.$user().favoriteGenre().values() ?? new Set())
-    return this.favoritesService.$user().favoriteGenre().has(this.genresCard.id);
+    const user = this.favoritesService.$user();
+    if (!this.genresCard || !user) {
+      return false;
+    }
+    return user.favoriteGenre().has(this.genresCard.id);
   });
 
   constructor(private genreService: GenreService, private favoritesService: FavoritesService) { }
 
-  ngOnInit(): void {
-    this.getGenres();
-  }
-
   followGenre(genre: Genre): void {
     this.$user()?.addGenre(genre);
-    // this.favoritesService.addGenreToFavorites(genre);
-  }
-
-  getGenres(): void {
-    this.genreService.getGenres().pipe(
-      take(1))
-      .subscribe((genres: GenresResult) => this.genreService.setGenres(genres.results));
   }
 }

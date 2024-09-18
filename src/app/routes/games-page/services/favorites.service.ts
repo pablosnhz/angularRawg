@@ -52,6 +52,8 @@ export class FavoritesService {
       sessionStorage.setItem('genres', JSON.stringify(updatedGenres));
 
       this.$user.update((user) => new User(this, this.get(), updatedGenres));
+
+      // this.$user.update((user) => new User(this, this.get(), updatedGenres));
     }
   }
 

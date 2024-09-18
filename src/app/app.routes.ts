@@ -1,8 +1,7 @@
 import { MainLayoutComponent } from "./core/main-layout/main-layout.component";
 import { Routes } from '@angular/router';
 import { HomePageComponent } from './routes/games-page/pages/home-page/home-page.component';
-import { GenresPageComponent } from "./routes/games-page/pages/genres-page/genres-page.component";
-import { GenresListComponent } from "./shared/genres-list/genres-list.component";
+import { MainGenreComponent } from './routes/games-page/pages/main-genre/main-genre.component';
 
 export const routes: Routes = [
   {
@@ -15,8 +14,7 @@ export const routes: Routes = [
       },
       {
         path: 'genres',
-        component: GenresPageComponent,
-        // component: GenresListComponent
+        component: MainGenreComponent
       },
       {
         path: 'games',
