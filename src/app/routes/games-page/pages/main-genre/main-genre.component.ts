@@ -19,6 +19,7 @@ import { SpinnerComponent } from 'src/app/shared/spinner/spinner.component';
 })
 export class MainGenreComponent {
   @Input() genresCard: Genre;
+  $loading: Signal<boolean> = this.genreService.$loading;
   $genres: Signal<Genre[]> = this.genreService.$genres;
   $user: Signal<User | null> = this.favoritesService.$user;
 

@@ -11,51 +11,40 @@ export class FavoritesService {
   $favoriteGenres: WritableSignal<Genre[]> = signal([]);
 
   constructor() {
-    this.$user = signal<User>(new User(this, this.get(), this.getGenre()));
-    this.$favoriteGenres = signal<Genre[]>(JSON.parse(sessionStorage.getItem('genres') || '[]'));
+    const storedGenres = JSON.parse(sessionStorage.getItem('genres') || '[]');
+    const storedFavorites = this.get();
+
+    this.$user = signal<User>(new User(this, storedFavorites, storedGenres));
+    this.$favoriteGenres.set(storedGenres);
   }
 
-  set(favorites: Game[]){
+  set(favorites: Game[]) {
     sessionStorage.setItem('favorites', JSON.stringify(favorites));
-    this.$user.set(new User(this, favorites));
+    this.$user.update(user => {
+      user.favorites.set(new Map(favorites.map((game) => [game.id, game])));
+      return user;
+    });
   }
 
-  get(){
+  get() {
     const inLocalStorage = sessionStorage.getItem('favorites');
-    if(inLocalStorage){
-      return JSON.parse(inLocalStorage);
-    }
-    return [];
-  }
-
-  getGenre(){
-    const inLocalStorageItem = sessionStorage.getItem('genres');
-    if(inLocalStorageItem){
-      return JSON.parse(inLocalStorageItem);
-    }
-    return [];
+    return inLocalStorage ? JSON.parse(inLocalStorage) : [];
   }
 
   setGenre(newGenre: Genre): void {
     const currentGenres = this.$favoriteGenres();
     const isAlreadyFavorite = currentGenres.some(fav => fav.id === newGenre.id);
 
-    if (!isAlreadyFavorite) {
-      const updatedGenres = [...currentGenres, newGenre];
-      this.$favoriteGenres.set(updatedGenres);
-      sessionStorage.setItem('genres', JSON.stringify(updatedGenres));
+    const updatedGenres = isAlreadyFavorite
+      ? currentGenres.filter(fav => fav.id !== newGenre.id)
+      : [...currentGenres, newGenre];
 
-      this.$user.update((user) => new User(this, this.get(), updatedGenres));
-    } else {
-      const updatedGenres = currentGenres.filter(fav => fav.id !== newGenre.id);
-      this.$favoriteGenres.set(updatedGenres);
-      sessionStorage.setItem('genres', JSON.stringify(updatedGenres));
+    this.$favoriteGenres.set(updatedGenres);
+    sessionStorage.setItem('genres', JSON.stringify(updatedGenres));
 
-      this.$user.update((user) => new User(this, this.get(), updatedGenres));
-
-      // this.$user.update((user) => new User(this, this.get(), updatedGenres));
-    }
+    this.$user.update(user => {
+      user.favoriteGenre.set(new Map(updatedGenres.map((genre) => [genre.id, genre])));
+      return user;
+    });
   }
-
 }
-

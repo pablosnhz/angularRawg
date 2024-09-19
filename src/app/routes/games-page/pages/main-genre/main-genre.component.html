@@ -1,23 +1,32 @@
 <div class="text-white flex flex-col gap-3 text-center sm:text-left py-3">
   <p class="text-4xl md:text-4xl lg:text-6xl xl:text-6xl font-bold mb-3">Genres</p>
 </div>
-<article class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-5">
-  <div *ngFor="let genre of $genres()" class="relative">
-    <figure class="rounded overflow-hidden">
-      <img class="rounded h-[230px] w-full object-cover" [src]="genre.image_background" [alt]="genre.name">
-      <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-100"></div>
-      <figcaption class="absolute inset-0 flex flex-col items-center justify-center">
-        <a [routerLink]="['/games/genre', genre.name.toLocaleLowerCase()]" class="text-white text-center text-2xl hover:text-[#636363] font-bold underline">
-          {{ genre.name }}
-        </a>
-        <button
-        type="button"
-        class="text-white hover:text-[#000000] mt-3 bg-gray-900 hover:bg-gray-100 focus:ring-4 focus:ring-gray-900 rounded-lg text-sm px-6 py-2.5 mb-2 opacity-75"
-        (click)="followGenre(genre)"
-        >
-        {{ $user()?.favoriteGenre()?.has(genre.id) ? 'Unfollow' : 'Follow' }}
-      </button>
-      </figcaption>
-    </figure>
+
+<ng-container *ngIf="$loading(); else spinner">
+  <div class="fixed inset-0 flex justify-center items-center">
+    <app-spinner class="flex justify-center items-center"></app-spinner>
   </div>
-</article>
+</ng-container>
+
+<ng-template #spinner>
+  <article class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-5">
+    <div *ngFor="let genre of $genres()" class="relative">
+      <figure class="rounded overflow-hidden">
+        <img class="rounded h-[230px] w-full object-cover" [src]="genre.image_background" [alt]="genre.name">
+        <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-100"></div>
+        <figcaption class="absolute inset-0 flex flex-col items-center justify-center">
+          <a [routerLink]="['/games/genre', genre.name.toLocaleLowerCase()]" class="text-white text-center text-2xl hover:text-[#636363] font-bold underline">
+            {{ genre.name }}
+          </a>
+          <button
+          type="button"
+          class="text-white hover:text-[#000000] mt-3 bg-gray-900 hover:bg-gray-100 focus:ring-4 focus:ring-gray-900 rounded-lg text-sm px-6 py-2.5 mb-2 opacity-75"
+          (click)="followGenre(genre)"
+          >
+          {{ $user()?.favoriteGenre()?.has(genre.id) ? 'Unfollow' : 'Follow' }}
+        </button>
+        </figcaption>
+      </figure>
+    </div>
+  </article>
+</ng-template>

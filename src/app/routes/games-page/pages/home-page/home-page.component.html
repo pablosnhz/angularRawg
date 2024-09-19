@@ -11,7 +11,7 @@
     centered-slides="true" autoplay-delay="6500" autoplay-disable-on-interaction="true"
     [pagination]="{ clickable: true, dynamicBullets: true, el: null }">
       <swiper-slide *ngFor="let games of $gamesHome()" class="flex flex-shrink-0 relative w-full sm:w-auto image-container">
-          <img [src]="games.background_image" loading="lazy" alt="black chair and white table"  class="game-image" />
+          <img [src]="games.background_image" loading="lazy" alt="{{ games.name }}"  class="game-image" />
           <div class="image-overlay"></div>
           <div class="text-white absolute left-[8%] p-6">
             <div class="title" data-swiper-parallax="-300">{{ games.name }}</div>
