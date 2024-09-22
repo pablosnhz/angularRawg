@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, CUSTOM_ELEMENTS_SCHEMA, OnInit, Sig
 import { distinctUntilChanged, switchMap, takeUntil } from 'rxjs';
 import { AutoDestroyService } from 'src/app/core/utils/auto-destroy.service';
 import { HomeService } from '../../services/home.service';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { register } from 'swiper/element/bundle';
 register();
@@ -14,13 +14,17 @@ register();
   standalone: true,
   imports: [CommonModule, RouterModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  providers: [AutoDestroyService],
+  providers: [AutoDestroyService, DatePipe],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomePageComponent implements OnInit{
   slider: any;
   defaultTransform: any;
+
   $gamesHome = this.homeService.$gamesHome;
+  $gamesHomeTrending = this.homeService.$gamesHomeRating;
+  $gamesListWeek = this.homeService.$gamesHomeWeek;
+
   inputFocused: boolean = false;
 
   $loading: Signal<boolean> = this.homeService.$loading;
@@ -33,24 +37,40 @@ export class HomePageComponent implements OnInit{
     this.slider = document.getElementById("slider");
     this.defaultTransform=0;
 
+    this.getGames();
+    this.getGamesRating();
+    this.getGamesWeek();
+}
 
-    this.homeService.queryString$.pipe(
+getGames(){
+  this.homeService.queryString$.pipe(
     distinctUntilChanged(),
     switchMap((title) => this.homeService.searchGames(title)),
     takeUntil(this.destroy$)
   ).subscribe((data) => {
     this.homeService.setGames(data.results)
   })
-  // this.getGames();
 }
 
-// getGames(){
-//   this.searchService.searchGames().pipe(
-//     takeUntil(this.destroy$)
-//   ).subscribe((data) => {
-//     this.searchService.setGames(data.results)
-//   })
-// }
+getGamesRating(){
+  this.homeService.queryString$.pipe(
+    // distinctUntilChanged(),
+    switchMap((title) => this.homeService.ListGamesRating(title)),
+    takeUntil(this.destroy$)
+  ).subscribe((data) => {
+    this.homeService.setGamesRating(data.results)
+  })
+}
+
+getGamesWeek(){
+  this.homeService.queryString$.pipe(
+    // distinctUntilChanged(),
+    switchMap((title) => this.homeService.ListGamesWeek(title)),
+    takeUntil(this.destroy$)
+  ).subscribe((data) => {
+    this.homeService.setGamesWeek(data.results)
+  })
+}
 
 goNext() {
   this.defaultTransform = this.defaultTransform - 398;

@@ -48,15 +48,15 @@
   <h1 class="text-white text-2xl font-bold">Trending Now</h1>
   <swiper-container class="mySwiper w-full relative h-[20vh] overflow-x-hidden" pagination="true" pagination-clickable="true" slides-per-view="5.3"
   space-between="20" free-mode="true" [pagination]="{ clickable: true, dynamicBullets: true, el: null }">
-  <swiper-slide *ngFor="let games of $gamesHome()" >
+  <swiper-slide *ngFor="let games of $gamesHomeTrending()" >
       <img [src]="games.background_image" loading="lazy" alt="black chair and white table" class="z-0 w-[400px] h-[180px] object-cover"/>
     </swiper-slide>
   </swiper-container>
   <div class="w-full">
-    <h1 class="text-white text-2xl font-bold">New this week</h1>
+    <h1 class="text-white text-2xl font-bold">New this Month</h1>
     <swiper-container class="mySwiper w-full relative h-[20vh] overflow-x-hidden" pagination="true" pagination-clickable="true" slides-per-view="5.3"
     space-between="20" free-mode="true" [pagination]="{ clickable: true, dynamicBullets: true, el: null }">
-    <swiper-slide *ngFor="let games of $gamesHome()" >
+    <swiper-slide *ngFor="let games of $gamesListWeek()" >
         <img [src]="games.background_image" loading="lazy" alt="black chair and white table" class="z-0 w-[400px] h-[180px] object-cover"/>
       </swiper-slide>
     </swiper-container>
