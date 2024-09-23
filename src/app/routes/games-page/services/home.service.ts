@@ -55,7 +55,7 @@ export class HomeService {
         search: title,
         ordering: '-updated',
         page_size: 10,
-        updated: `${new Date().setDate(new Date().getDate() - 7), new Date().setDate(new Date().getDate() - 1)}`,
+        // updated: `2022-01-01,2024-08-01`,
         // metacritic: '80,100'
       }
     });

@@ -3,8 +3,9 @@ import { distinctUntilChanged, switchMap, takeUntil } from 'rxjs';
 import { AutoDestroyService } from 'src/app/core/utils/auto-destroy.service';
 import { HomeService } from '../../services/home.service';
 import { CommonModule, DatePipe } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { register } from 'swiper/element/bundle';
+import { GameDetails } from 'src/app/core/models/game-details';
 register();
 
 @Component({
@@ -31,6 +32,7 @@ export class HomePageComponent implements OnInit{
 
   constructor(  private homeService: HomeService,
                 private destroy$: AutoDestroyService,
+                private route: ActivatedRoute
               ){}
 
   ngOnInit(): void {
