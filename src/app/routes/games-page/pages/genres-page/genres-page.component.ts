@@ -1,11 +1,9 @@
-import { ChangeDetectionStrategy, Component, computed, Input, OnInit, Signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, Input, Signal } from '@angular/core';
 import { GenreService } from '../../services/genre.service';
 import { Genre } from 'src/app/core/models/genres';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { SpinnerComponent } from 'src/app/shared/spinner/spinner.component';
-import { take } from 'rxjs';
-import { GenresResult } from 'src/app/core/models/genres';
 import { FavoritesService } from '../../services/favorites.service';
 import { User } from 'src/app/core/models/user';
 

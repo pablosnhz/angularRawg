@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, CUSTOM_ELEMENTS_SCHEMA, OnInit, Signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, CUSTOM_ELEMENTS_SCHEMA, Input, OnInit, Signal } from '@angular/core';
 import { distinctUntilChanged, switchMap, takeUntil } from 'rxjs';
 import { AutoDestroyService } from 'src/app/core/utils/auto-destroy.service';
 import { HomeService } from '../../services/home.service';
@@ -6,6 +6,9 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { register } from 'swiper/element/bundle';
 import { GameDetails } from 'src/app/core/models/game-details';
+import { FavoritesService } from '../../services/favorites.service';
+import { User } from 'src/app/core/models/user';
+import { Game } from 'src/app/core/models/game';
 register();
 
 @Component({
@@ -25,14 +28,24 @@ export class HomePageComponent implements OnInit{
   $gamesHome = this.homeService.$gamesHome;
   $gamesHomeTrending = this.homeService.$gamesHomeRating;
   $gamesListWeek = this.homeService.$gamesHomeWeek;
+  $loading: Signal<boolean> = this.homeService.$loading;
+  $user: Signal<User | null> = this.favoritesService.$user;
+
+  gamesHome: Game[] = [];
 
   inputFocused: boolean = false;
 
-  $loading: Signal<boolean> = this.homeService.$loading;
+  $favorites: Signal<boolean> = computed(() => {
+    const user = this.favoritesService.$user();
+    if (!this.gamesHome || !user) {
+      return false;
+    }
+    return user.favorites().has(this.gamesHome[0]?.id);
+  });
 
   constructor(  private homeService: HomeService,
                 private destroy$: AutoDestroyService,
-                private route: ActivatedRoute
+                private favoritesService: FavoritesService
               ){}
 
   ngOnInit(): void {
@@ -42,6 +55,11 @@ export class HomePageComponent implements OnInit{
     this.getGames();
     this.getGamesRating();
     this.getGamesWeek();
+}
+
+addGameToFavorites(game: Game): void {
+  this.$user()?.addGame(game);
+  // console.log(this.$user()?.favorites());
 }
 
 getGames(){

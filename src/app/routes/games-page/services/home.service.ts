@@ -26,9 +26,10 @@ export class HomeService {
     const params = new HttpParams({
       fromObject: {
         search: title,
-        ordering: '-rating',
+        ordering: '-released',
         page_size: 10,
-        metacritic: '80,100'
+        metacritic: '80,100',
+        updated: `2023-09-01,2024-01-01`,
       }
     });
     return this.httpClient.get<SearchResult>(environment.API_URL + 'games', { params });
@@ -53,9 +54,9 @@ export class HomeService {
     const params = new HttpParams({
       fromObject: {
         search: title,
-        ordering: '-updated',
+        ordering: '-popularity',
         page_size: 10,
-        // updated: `2022-01-01,2024-08-01`,
+        updated: `2022-01-01,2024-08-01`,
         // metacritic: '80,100'
       }
     });

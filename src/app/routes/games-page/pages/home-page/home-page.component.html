@@ -18,7 +18,9 @@
             <div class="subtitle text-[#45d66b]" data-swiper-parallax="-200">Rating: {{ games.rating }}</div>
             <div class="gap-5 flex mb-2">
               <a [routerLink]="['games', games.id]" class="text-white hover:text-[#000000] mt-3 bg-[#636363] hover:bg-gray-100 focus:ring-4 focus:ring-gray-900 rounded-lg text-sm px-6 py-2.5 mb-2 opacity-75">Details</a>
-              <button type="button" class="text-white hover:text-[#000000] mt-3 bg-[#636363] hover:bg-gray-100 focus:ring-4 focus:ring-gray-900 rounded-lg text-sm px-6 py-2.5 mb-2 opacity-75">Add my list</button>
+              <button (click)="addGameToFavorites(games)" type="button" class="text-white hover:text-[#000000] mt-3 bg-[#636363] hover:bg-gray-100 focus:ring-4 focus:ring-gray-900 rounded-lg text-sm px-6 py-2.5 mb-2 opacity-75">
+                {{ $user()?.favorites()?.has(games.id) ? 'Remove from favorites' : 'Add to favorites' }}
+              </button>
             </div>
             <!-- <div class="subtitle" data-swiper-parallax="-200">{{ games.released }}</div> -->
             <div class="text" data-swiper-parallax="-100">
@@ -47,50 +49,56 @@
 <div class="content-home w-full px-20" [class.focused]="inputFocused">
   <h1 class="text-white text-2xl font-bold mb-4">Trending Now</h1>
 
-  <swiper-container class="mySwiper w-full relative h-[20vh] overflow-x-hidden" pagination="true" pagination-clickable="true"
-    slides-per-view="5.3" space-between="20" free-mode="true"
-    [pagination]="{ clickable: true, dynamicBullets: true, el: null }">
+  <swiper-container class="mySwiper w-full relative h-[20vh] overflow-hidden"
+  pagination="true" pagination-clickable="true"
+  slides-per-view="5.3" space-between="20" free-mode="true"
+  [pagination]="{ clickable: true, dynamicBullets: true, el: null }">
 
-    <swiper-slide *ngFor="let games of $gamesHomeTrending()"
-      class="group h-full sm:scale-100 hover:scale-200 sm:hover:scale-110 transition-transform rounded-lg bg-[#202020] text-white relative">
+  <swiper-slide *ngFor="let games of $gamesHomeTrending()"
+    class="group relative h-full transition-transform rounded-lg bg-[#202020] text-white overflow-hidden">
 
-      <img [src]="games.background_image" loading="lazy" alt="{{ games.background_image }}"
-        class="z-0 w-[400px] h-full rounded-lg shadow-lg object-cover transition-transform duration-500 ease-in-out transform group-hover:scale-210 group-hover:-translate-x-[80%]" />
+    <img [src]="games.background_image" loading="lazy" alt="{{ games.background_image }}"
+      class="z-0 w-full h-full rounded-lg shadow-lg object-cover transition-transform duration-700 ease-in-out group-hover:scale-110" />
 
-      <div class="absolute inset-y-0 right-0 w-0 overflow-hidden bg-[#000000] transition-all duration-500 ease-in-out group-hover:w-[300px]">
-        <div class="h-full w-full flex flex-col items-center justify-center px-4">
-          <p class="text-white text-base font-bold text-center">{{ games.name }}</p>
-          <p class="text-white text-xs text-center">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam
-            dictum mattis velit, sit amet faucibus felis iaculis nec. Nulla
-            laoreet justo vitae porttitor porttitor. Suspendisse in sem justo.
-          </p>
-          <div class="gap-5 flex">
-            <button [routerLink]="['games', games.id]" type="button" class="text-white hover:text-[#000000] mt-3 bg-[#636363] hover:bg-gray-100 focus:ring-4 focus:ring-gray-900 rounded-lg text-sm px-5 py-2 mb-2 opacity-75">Details</button>
-            <button type="button" class="text-white hover:text-[#000000] mt-3 bg-[#636363] hover:bg-gray-100 focus:ring-4 focus:ring-gray-900 rounded-lg text-sm px-5 py-2 mb-2 opacity-75">Add my list</button>
-          </div>
+    <div class="absolute inset-0 flex items-center justify-center bg-[#000000] opacity-0 transition-opacity duration-200 ease-in-out group-hover:opacity-80">
+      <div class="w-full flex flex-col items-center justify-center p-4">
+        <p class="text-white text-base font-bold text-center">{{ games.name }}</p>
+        <p class="text-white text-xs text-center">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam
+          dictum mattis velit, sit amet faucibus felis iaculis nec. Nulla
+          laoreet justo vitae porttitor porttitor. Suspendisse in sem justo.
+        </p>
+        <div class="gap-5 flex">
+          <button [routerLink]="['games', games.id]" type="button"
+            class="text-white hover:text-[#000000] mt-3 bg-[#636363] hover:bg-gray-100 focus:ring-4 focus:ring-gray-900 rounded-lg text-sm px-5 py-2 mb-2 opacity-75">
+            Details
+          </button>
+          <button (click)="addGameToFavorites(games)" type="button"
+            class="text-white hover:text-[#000000] mt-3 bg-[#636363] hover:bg-gray-100 focus:ring-4 focus:ring-gray-900 rounded-lg text-sm px-2 py-2.5 mb-2 opacity-75">
+            {{ $user()?.favorites()?.has(games.id) ? 'Remove from favorites' : 'Add to favorites' }}
+          </button>
         </div>
       </div>
+    </div>
 
-    </swiper-slide>
-
-  </swiper-container>
-
+  </swiper-slide>
+</swiper-container>
 
   <div class="w-full">
     <h1 class="text-white text-2xl font-bold">Added this Month</h1>
-    <swiper-container class="mySwiper w-full relative h-[20vh] overflow-x-hidden" pagination="true" pagination-clickable="true"
+    <swiper-container class="mySwiper w-full relative h-[20vh] overflow-hidden"
+    pagination="true" pagination-clickable="true"
     slides-per-view="5.3" space-between="20" free-mode="true"
     [pagination]="{ clickable: true, dynamicBullets: true, el: null }">
 
     <swiper-slide *ngFor="let games of $gamesListWeek()"
-      class="group h-full sm:scale-100 hover:scale-200 sm:hover:scale-110 transition-transform rounded-lg bg-[#202020] text-white relative">
+      class="group relative h-full transition-transform rounded-lg bg-[#202020] text-white overflow-hidden">
 
       <img [src]="games.background_image" loading="lazy" alt="{{ games.background_image }}"
-        class="z-0 w-[400px] h-full rounded-lg shadow-lg object-cover transition-transform duration-500 ease-in-out transform group-hover:scale-210 group-hover:-translate-x-[80%]" />
+        class="z-0 w-full h-full rounded-lg shadow-lg object-cover transition-transform duration-700 ease-in-out group-hover:scale-110" />
 
-      <div class="absolute inset-y-0 right-0 w-0 overflow-hidden bg-[#000000] transition-all duration-500 ease-in-out group-hover:w-[300px]">
-        <div class="h-full w-full flex flex-col items-center justify-center px-4">
+      <div class="absolute inset-0 flex items-center justify-center bg-[#000000] opacity-0 transition-opacity duration-200 ease-in-out group-hover:opacity-80">
+        <div class="w-full flex flex-col items-center justify-center p-4">
           <p class="text-white text-base font-bold text-center">{{ games.name }}</p>
           <p class="text-white text-xs text-center">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam
@@ -98,17 +106,60 @@
             laoreet justo vitae porttitor porttitor. Suspendisse in sem justo.
           </p>
           <div class="gap-5 flex">
-            <button [routerLink]="['games', games.id]" type="button" class="text-white hover:text-[#000000] mt-3 bg-[#636363] hover:bg-gray-100 focus:ring-4 focus:ring-gray-900 rounded-lg text-sm px-5 py-2 mb-2 opacity-75">Details</button>
-            <button type="button" class="text-white hover:text-[#000000] mt-3 bg-[#636363] hover:bg-gray-100 focus:ring-4 focus:ring-gray-900 rounded-lg text-sm px-5 py-2 mb-2 opacity-75">Add my list</button>
+            <button [routerLink]="['games', games.id]" type="button"
+              class="text-white hover:text-[#000000] mt-3 bg-[#636363] hover:bg-gray-100 focus:ring-4 focus:ring-gray-900 rounded-lg text-sm px-5 py-2 mb-2 opacity-75">
+              Details
+            </button>
+            <button (click)="addGameToFavorites(games)" type="button"
+              class="text-white hover:text-[#000000] mt-3 bg-[#636363] hover:bg-gray-100 focus:ring-4 focus:ring-gray-900 rounded-lg text-sm px-2 py-2.5 mb-2 opacity-75">
+              {{ $user()?.favorites()?.has(games.id) ? 'Remove from favorites' : 'Add to favorites' }}
+            </button>
           </div>
         </div>
       </div>
 
     </swiper-slide>
-
   </swiper-container>
+
   </div>
 
 </div>
 
 
+
+
+<!-- <swiper-container class="mySwiper w-full relative h-[20vh] overflow-x-hidden"
+pagination="true" pagination-clickable="true" slides-per-view="5.3"
+space-between="20" free-mode="true"
+[pagination]="{ clickable: true, dynamicBullets: true, el: null }">
+
+<swiper-slide *ngFor="let games of $gamesHomeTrending()"
+  class="group h-full sm:scale-100 hover:scale-110 transition-transform rounded-lg bg-[#202020] text-white relative">
+
+  <img [src]="games.background_image" loading="lazy" alt="{{ games.background_image }}"
+    class="z-0 w-[400px] h-full rounded-lg shadow-lg object-cover transition-transform duration-700 ease-in-out transform group-hover:scale-110 group-hover:translate-x-[80%]" />
+
+  <!-- El contenedor de texto se expande donde estaba la imagen -->
+  <!-- <div class="absolute inset-y-0 left-0 w-0 overflow-hidden bg-[#000000] transition-all duration-200 ease-in-out group-hover:w-[400px] group-hover:left-0">
+    <div class="h-full w-full flex flex-col items-center justify-center px-4">
+      <p class="text-white text-base font-bold text-center">{{ games.name }}</p>
+      <p class="text-white text-xs text-center">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam
+        dictum mattis velit, sit amet faucibus felis iaculis nec. Nulla
+        laoreet justo vitae porttitor porttitor. Suspendisse in sem justo.
+      </p>
+      <div class="gap-5 flex">
+        <button [routerLink]="['games', games.id]" type="button"
+          class="text-white hover:text-[#000000] mt-3 bg-[#636363] hover:bg-gray-100 focus:ring-4 focus:ring-gray-900 rounded-lg text-sm px-5 py-2 mb-2 opacity-75">
+          Details
+        </button>
+        <button (click)="addGameToFavorites(games)" type="button"
+          class="text-white hover:text-[#000000] mt-3 bg-[#636363] hover:bg-gray-100 focus:ring-4 focus:ring-gray-900 rounded-lg text-sm px-2 py-2.5 mb-2 opacity-75">
+          {{ $user()?.favorites()?.has(games.id) ? 'Remove from favorites' : 'Add to favorites' }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+</swiper-slide>
+</swiper-container>  -->
