@@ -54,9 +54,9 @@ export class HomeService {
     const params = new HttpParams({
       fromObject: {
         search: title,
-        ordering: '-popularity',
+        ordering: '-updated',
         page_size: 10,
-        updated: `2022-01-01,2024-08-01`,
+        // updated: `2022-01-01,2024-08-01`,
         // metacritic: '80,100'
       }
     });

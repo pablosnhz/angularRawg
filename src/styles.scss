@@ -2,17 +2,23 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+// @import 'tailwindcss/base';
+// @import 'tailwindcss/components';
+// @import 'tailwindcss/utilities';
 
 @layer utilities {
   .line-clamp-10 {
     @apply overflow-hidden;
     display: -webkit-box;
     -webkit-box-orient: vertical;
+    line-clamp: 10;
     -webkit-line-clamp: 10;
     transition: all 0.5s ease-in-out;
   }
+
   .line-clamp-none {
     @apply overflow-visible;
+    line-clamp: unset;
     -webkit-line-clamp: unset;
     transition: all 0.5s ease-in-out;
   }
